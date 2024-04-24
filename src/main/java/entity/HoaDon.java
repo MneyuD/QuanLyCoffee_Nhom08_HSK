@@ -22,7 +22,7 @@ public class HoaDon {
 		this.maHD = maHD;
 	}
 
-	public HoaDon(String maHD, LocalDate ngayLapHD, Enum_PhuongThucTT pttt, LocalDate gioVao, LocalDate gioRa, Ban ban, NhanVien nhanVien, KhachHang khachHang, Double tongTien) {
+	public HoaDon(String maHD, LocalDate ngayLapHD, Enum_PhuongThucTT pttt, LocalDate gioVao, LocalDate gioRa, Ban ban, NhanVien nhanVien, KhachHang khachHang) {
 		this.maHD = maHD;
 		this.ngayLapHD = ngayLapHD;
 		this.pttt = pttt;
@@ -117,6 +117,13 @@ public class HoaDon {
 	public void setKhachHang(KhachHang khachHang) {
 		this.khachHang = khachHang;
 	}
+
+	public Double getTongTien() {
+		return tongTien;
+	}
+	public void setTongTien(Double tongTienb) {
+		this.tongTien = tongTien;
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(maHD);
@@ -145,9 +152,5 @@ public class HoaDon {
 				", nhanVien=" + nhanVien +
 				", khachHang=" + khachHang +
 				'}';
-	}
-
-	public Double getTongTien() {
-		return tongTien;
 	}
 }

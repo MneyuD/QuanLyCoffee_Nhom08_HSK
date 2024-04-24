@@ -1,13 +1,19 @@
-﻿
-CREATE DATABASE QuanLyCoffee
-----drop database QuanLyCoffee
---ALTER DATABASE QuanLyCoffe MODIFY NAME = QuanLyCoffee
-----Đổi tên database nha thành QuanLyCoffee
-
---ALTER DATABASE QuanLyCoffee SET ONLINE
+﻿--ALTER DATABASE QuanLyCoffee SET ONLINE
 ----Nếu bị lỗi (Recover-Peding) thì set database về online
 --GO
-DROP DATABASE QuanLyCoffee
+--DROP DATABASE QuanLyCoffee
+
+--CONTENTS PAGE.
+--1.CREATE DATABASE, TABLE
+--2.INSERT TABLE
+--3.TRIGGER
+	--TRIGGER Ktra TaiKhoan theo đúng định dạng
+	--TRIGGER Tạo auto tạo ID cho sản phẩm (*Chú ý: Chèn một ID random để 
+										--sau đó trigger sẽ cập nhật lại ID tự dộng)
+
+--SCRIPT
+--1.CREATE DATABASE
+CREATE DATABASE QuanLyCoffee
 
 USE QuanLyCoffee
 
@@ -37,10 +43,6 @@ CREATE TABLE KhachHang
 CREATE TABLE LoaiSP
 	(maLoai NVARCHAR(20) PRIMARY KEY NOT NULL,
 	tenLoai NVARCHAR(50) NOT NULL)
-
-SELECT * FROM SanPham SP JOIN LoaiSP LSP ON SP.maLoai = LSP.maLoai
-
-SELECT * FROM SanPham SP JOIN LoaiSP LSP ON SP.maLoai = LSP.maLoai WHERE tenLoai LIKE N'Cà phê'
 
 CREATE TABLE SanPham
 	(maSP NVARCHAR(20) PRIMARY KEY NOT NULL,
@@ -78,49 +80,8 @@ CREATE TABLE ChiTietHD
 	PRIMARY KEY (maHD, maSP))
 GO
 
---TRIGGER KIỂM TRA ĐĂNG KÝ (CHÈN VÀO BẢNG TaiKhoan)
---CREATE TRIGGER RegisterAccount 
---ON TaiKhoan
---INSTEAD OF INSERT
---AS
---BEGIN
---	SET NOCOUNT ON
 
---	DECLARE @UserName NVARCHAR(20), @Password NVARCHAR(10)
-
---	SELECT @UserName = tenDangNhap, @Password = matKhau
---	FROM inserted
-	
---	--Kiểm tra tài khoản 8 chữ số
---	IF @UserName NOT LIKE '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'
---	BEGIN
---		RAISERROR (N'Tên đăng nhập phải 8 số', 11, 1)
---		ROLLBACK TRANSACTION
---		RETURN
---	END
-
---	--Độ dài mật khẩu hơn 8
---	IF LEN(@Password) < 8
---	BEGIN
---		RAISERROR (N'Mật khẩu có ít nhất 8 kí tự', 11,2)
---		ROLLBACK TRANSACTION
---		RETURN
---	END
-
---	--Mật khẩu 1 kí tự in hoa, số, đặt biệt
---	IF NOT (@Password LIKE '%[0-9]%' AND @Password LIKE '%[A-Z]%' AND @Password LIKE '%[!@#$%^&*()_-]%')
---	BEGIN
---		RAISERROR (N'Mật khẩu ít nhất 1 kí tự in hoa, số, đặt biệt', 11, 3)
---		ROLLBACK TRANSACTION
---		RETURN
---	END
-
---	INSERT TaiKhoan
---	SELECT @UserName , @Password
---	FROM inserted
---END
---GO
-
+--2. INSERT TABLE
 INSERT TaiKhoan VALUES ('22716371', 'Giang188@'), ('22721461', 'Duyen123@'), ('22674951', 'Chuong123@'), ('22728821', 'NAnh123@')
 
 INSERT NhanVien VALUES 
@@ -128,10 +89,6 @@ INSERT NhanVien VALUES
 ('0704240002', N'Nguyễn Thị Mỹ Duyên', 0, 'Khu vực ngoài trời', 4800000, 900000, '87654321', '22721461'),
 ('0704240003', N'Phan Khánh Chương', 1, 'Khu quầy', 5500000, 1200000, '13579246', '22674951'),
 ('0704240004', N'Dương Nhật Anh', 1, 'Khu vực trong nhà', 5200000, 1100000, '98765432', '22728821')
-
-DELETE FROM NhanVien
-DELETE FROM HoaDon
-DELETE FROM ChiTietHD
 
 INSERT LoaiSP VALUES 
 ('LSP0001', N'Cà phê'),
@@ -155,114 +112,101 @@ INSERT SanPham VALUES
 ('20240419SP000006', N'Bạc xỉu', 'S', 20000, 0.1, GETDATE() , 1, 'LSP0001'),
 ('20240419SP000007', N'Cà phê đen', 'S', 20000, 0.1, NULL, 1, 'LSP0001')
 
-DELETE
-FROM SanPham
-WHERE [maSP] LIKE '20240419SP000007'
-
 INSERT Ban VALUES
 ('B00001', 6, 1),
 ('B00002', 4, 1),
 ('B00003', 2, 0),
 ('B00004', 4, 1)
 
-SELECT * FROM HoaDon
 INSERT HoaDon VALUES 
-('20040420HD000001', GETDATE(), N'Chuyển khoản', GETDATE(), GETDATE(), 'B00002', '0704240001', '20040002'),
-('20040420HD000002', GETDATE(), N'Chuyển khoản', GETDATE(), GETDATE(), 'B00001', '0704240002', '20040001')
+('20040420HD000001', GETDATE(), N'Chuyển khoản', GETDATE(), GETDATE(), 0, 'B00002', '0704240001', '20040002'),
+('20040420HD000002', GETDATE(), N'Chuyển khoản', GETDATE(), GETDATE(), 0, 'B00001', '0704240002', '20040001')
 
-SELECT * FROM SanPham
-SELECT * FROM ChiTietHD
 INSERT ChiTietHD VALUES
-('20040420HD000001', '20240419SP000001', 1),
-('20040420HD000001', '20240419SP000002', 1),
-('20040420HD000001', '20240419SP000003', 1),
-('20040420HD000002', '20240419SP000006', 2),
-('20040420HD000002', '20240419SP000005', 1)
-
-sp_helpconstraint ChiTietHD
-
---SELECT * FROM HoaDon HD 
---	JOIN ChiTietHD CTHD ON HD.maHD = CTHD.maHD
---	JOIN SanPham SP ON SP.maSP = CTHD.maSP
---	JOIN KhachHang KH ON KH.maKH = HD.maKH
---	JOIN NhanVien NV ON NV.maNV = HD.maNV
---	JOIN Ban B ON B.maBan = HD.maBan
-
---SELECT * FROM SanPham
---SELECT * FROM NhanVien
---DELETE FROM SanPham
-
---SELECT * FROM LoaiSP
-
---ALTER TABLE HoaDon
---ADD tongTien MONEY
-
---ALTER TABLE ChiTietHD
---ADD donGia MONEY, thanhTien MONEY
---SELECT * FROM HoaDon
-
---SELECT SUM([tongTien]) AS TongTien
---FROM HoaDon
---WHERE YEAR(ngayLap) = YEAR(GETDATE()) AND MONTH(ngayLap) = MONTH(GETDATE())
---GROUP BY YEAR(ngayLap), MONTH(ngayLap)
-
---DECLARE @ngayLap DATETIME
---SELECT @ngayLap = ngayLap FROM HoaDon WHERE maHD = '20040420HD000001'
---PRINT CONVERT(DATE, GETDATE())
+('20040420HD000001', '20240419SP000001', 1, 0, 0),
+('20040420HD000001', '20240419SP000002', 1, 0, 0),
+('20040420HD000001', '20240419SP000003', 1, 0, 0),
+('20040420HD000002', '20240419SP000006', 2, 0, 0),
+('20040420HD000002', '20240419SP000005', 1, 0 ,0)
 
 INSERT HoaDon VALUES 
-('20040420HD000003', GETDATE(), N'Chuyển khoản', GETDATE(), GETDATE(), 'B00002', '0704240001', '20040002', 300),
-('20040420HD000004', GETDATE(), N'Chuyển khoản', GETDATE(), GETDATE(), 'B00002', '0704240001', '20040002', 200),
-('20040420HD000005', GETDATE(), N'Chuyển khoản', GETDATE(), GETDATE(), 'B00001', '0704240001', '20040003', 500)
-
+('20040420HD000003', GETDATE(), N'Chuyển khoản', GETDATE(), GETDATE(), 300,  'B00002', '0704240001', '20040002'),
+('20040420HD000004', GETDATE(), N'Chuyển khoản', GETDATE(), GETDATE(), 200, 'B00002', '0704240001', '20040002'),
+('20040420HD000005', GETDATE(), N'Chuyển khoản', GETDATE(), GETDATE(), 500, 'B00001', '0704240001', '20040003')
 GO
 
---DECLARE @NgayHienTai NVARCHAR(8), @MaNhanVien NVARCHAR(20), @SoNgauNhien NVARCHAR(6), @MaHoaDon NVARCHAR(40)
+INSERT ChiTietHD VALUES
+('20040420HD000003', '20240419SP000005', 3, 0, 0),
+('20040420HD000003', '20240419SP000002', 4, 0, 0)
+GO
 
---SET @NgayHienTai = CONVERT(NVARCHAR(8), GETDATE(), 112)
+--3. TRIGGER
+--TRIGGER KIỂM TRA ĐĂNG KÝ (CHÈN VÀO BẢNG TaiKhoan)
+CREATE TRIGGER RegisterAccount 
+ON TaiKhoan
+INSTEAD OF INSERT
+AS
+BEGIN
+	SET NOCOUNT ON
 
---SELECT @MaNhanVien = '0704240001'
+	DECLARE @UserName NVARCHAR(20), @Password NVARCHAR(10)
 
---SET @SoNgauNhien = CAST(ROUND(RAND() * 999999, 0) AS NVARCHAR(6))
---SET @SoNgauNhien = RIGHT('000000' + @SoNgauNhien, 6)
+	SELECT @UserName = tenDangNhap, @Password = matKhau
+	FROM inserted
+	
+	--Kiểm tra tài khoản 8 chữ số
+	IF @UserName NOT LIKE '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'
+	BEGIN
+		RAISERROR (N'Tên đăng nhập phải 8 số', 11, 1)
+		ROLLBACK TRANSACTION
+		RETURN
+	END
 
---SET @MaHoaDon = @NgayHienTai + @MaNhanVien + @SoNgauNhien
+	--Độ dài mật khẩu hơn 8
+	IF LEN(@Password) < 8
+	BEGIN
+		RAISERROR (N'Mật khẩu có ít nhất 8 kí tự', 11,2)
+		ROLLBACK TRANSACTION
+		RETURN
+	END
 
---PRINT @MaHoaDon
---GO
+	--Mật khẩu 1 kí tự in hoa, số, đặt biệt
+	IF NOT (@Password LIKE '%[0-9]%' AND @Password LIKE '%[A-Z]%' AND @Password LIKE '%[!@#$%^&*()_-]%')
+	BEGIN
+		RAISERROR (N'Mật khẩu ít nhất 1 kí tự in hoa, số, đặt biệt', 11, 3)
+		ROLLBACK TRANSACTION
+		RETURN
+	END
 
---DECLARE @NgayHienTai NVARCHAR(8), @SoCuoi NVARCHAR(6), @MaHoaDon NVARCHAR(40)
+	INSERT TaiKhoan
+	SELECT @UserName , @Password
+	FROM inserted
+END
+GO
 
---SET @NgayHienTai = CONVERT(NVARCHAR(8), GETDATE(), 112)
+--TRIGGER AUTO CREATE PRODUCT_ID 
+CREATE TRIGGER auotoGenerateID_SanPham ON SanPham
+AFTER INSERT
+AS
+BEGIN
+	IF EXISTS (SELECT * FROM inserted)
+		BEGIN
+			DECLARE @NgayHienTai NVARCHAR(8), @SoCuoi NVARCHAR(6), @MaSP NVARCHAR(40)
 
---SELECT @SoCuoi = ISNULL(MAX(CAST(RIGHT(maHD, 6) AS INT)), 0)
---FROM HoaDon 
+			SET @NgayHienTai = CONVERT(NVARCHAR(8), GETDATE(), 112)
+			
+			SELECT @SoCuoi = ISNULL(MAX(CAST(RIGHT(maSP, 6) AS INT)), 0)
+			FROM SanPham
+			WHERE maSP <> (SELECT maSP FROM inserted)
 
---PRINT @SoCuoi
+			DECLARE @ChuoiSo VARCHAR(6)
+			SET @ChuoiSo = RIGHT('000000' + CAST(@SoCuoi + 1 AS VARCHAR(6)), 6)
 
---SET @MaHoaDon = @NgayHienTai + @SoCuoi
+			SET @MaSP = @NgayHienTai + 'SP' + @ChuoiSo
 
---PRINT @MaHoaDon
---GO
-
---DECLARE @TuNgay NVARCHAR(10), @DenNgay NVARCHAR(10)
---SET @TuNgay = '24/3/2024'
---SET @DenNgay = '24/4/2024'
-
---PRINT CONVERT(NVARCHAR(10), CONVERT(DATE, @TuNgay, 103), 103) + ' - ' + CONVERT(NVARCHAR(10), CONVERT(DATE, @DenNgay, 103), 103)
-
---PRINT CONVERT(DATE, @TuNgay) + CONVERT(DATE, @DenNgay)
---GO
-
---DECLARE @TuNgay NVARCHAR(10), @DenNgay NVARCHAR(10)
---SET @TuNgay = '22/3/2024'
---SET @DenNgay = '24/4/2024'
-
---SELECT SUM([tongTien]) AS TongTien 
---FROM HoaDon 
---WHERE CONVERT(DATE, ngayLap, 103) >= CONVERT(DATE, @TuNgay, 103) 
---	AND CONVERT(DATE, ngayLap, 103) <= CONVERT(DATE, @DenNgay, 103)
-----GROUP BY CONVERT(DATE, ngayLap, 103)
---GO
-
-
+			UPDATE SanPham
+			SET maSP = @MaSP
+			WHERE maSP = (SELECT maSP FROM inserted)
+		END
+END
+GO

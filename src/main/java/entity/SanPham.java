@@ -12,6 +12,13 @@ public class SanPham {
 	private LocalDate ngayHetHan;
 	private boolean trangThai;
 	private LoaiSP loaiSP;
+
+	public SanPham(String maSP, String tenSP, boolean trangThai) {
+		this.maSP = maSP;
+		this.tenSP = tenSP;
+		this.trangThai = trangThai;
+	}
+
 	public SanPham(String maSP, String tenSP, Double donGia, Double thue, Enum_KichCo kickCo, LocalDate ngayHetHan, boolean trangThai, LoaiSP loaiSP) {
 		super();
 		this.maSP = maSP;

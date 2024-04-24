@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.Timer;
+
+import dao.SanPham_DAO;
 import ui.BH;
 import ui.HoaDon;
 import ui.NhanVien;
@@ -428,5 +430,7 @@ public class BanHang extends javax.swing.JFrame {
     private javax.swing.JLabel l_time;
     private javax.swing.JLabel lblHinh;
     private javax.swing.JLabel lblTenNhom;
-    // End of variables declaration                   
+    // End of variables declaration
+
+
 }

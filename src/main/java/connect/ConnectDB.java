@@ -15,7 +15,7 @@ public class ConnectDB {
     public void connect() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=QuanLyCoffee", "sa", "Ntmdsql");
+            con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=QuanLyCoffee", "sa", "123456789");
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -6,12 +6,15 @@ package ui;
 
 import connect.ConnectDB;
 import dao.ChiTietHD_DAO;
+import dao.HoaDon_DAO;
 import entity.ChiTietHD;
 import entity.SanPham;
 
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 /**
@@ -33,7 +36,7 @@ public class HoaDon extends javax.swing.JPanel {
         chiTietHD_dao = new ChiTietHD_DAO();
 
         ArrayList<ChiTietHD> cthd = chiTietHD_dao.getAllOrder();
-        loadData(cthd);
+        loadData(new HoaDon_DAO().getAllOrder());
     }
 
     /**
@@ -442,6 +445,40 @@ public class HoaDon extends javax.swing.JPanel {
         Loc_Button.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         Loc_Button.setText("Lọc");
 
+        HoaDonInfo_Table.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int row = HoaDonInfo_Table.getSelectedRow();
+                String maHD = modelHoaDon.getValueAt(row, 0).toString();
+                ArrayList<ChiTietHD> list = new ChiTietHD_DAO().getOrderDetail_ByID(maHD);
+
+                modelChiTietHD.setRowCount(0);
+                for(ChiTietHD cthd : list) {
+                    modelChiTietHD.addRow(new Object[] {cthd.getSp().getTenSP(), cthd.getDonGia()
+                            , cthd.getSoLuong(), cthd.getThanhTien(), null});
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
         HoaDonInfo_Table.setModel(modelHoaDon = new javax.swing.table.DefaultTableModel(
                 new Object [][] {
                         {null, null, null, null, null, null, null, null},
@@ -772,13 +809,11 @@ public class HoaDon extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_SoDienThoai1_txtActionPerformed
 
-    private void loadData(ArrayList<ChiTietHD> list){
+    private void loadData(ArrayList<entity.HoaDon> list){
         modelHoaDon.setRowCount(0);
-        modelChiTietHD.setRowCount(0);
-        for(ChiTietHD cthd : list) {
-            modelHoaDon.addRow(new Object[] {cthd.getHd().getMaHD(), cthd.getHd().getNhanVien().getTenNV(), cthd.getHd().getKhachHang().getTenKH()
-                    , cthd.getHd().getNgayLapHD(), cthd.getHd().getGioRa(), null, cthd.getHd().getTongTien(), null, null});
-            modelChiTietHD.addRow(new Object[] {cthd.getSp().getTenSP(), cthd.getSp().getDonGia(), cthd.getSoLuong(), cthd.getThanhTien(), null});
+        for(entity.HoaDon hd : list) {
+            modelHoaDon.addRow(new Object[] {hd.getMaHD(), hd.getNhanVien().getMaNV() , hd.getKhachHang().getMaKH()
+                    , hd.getNgayLapHD(), hd.getGioRa(), hd.getTongTien(), null, null});
         }
     }
 

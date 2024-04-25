@@ -2,6 +2,8 @@
 ----Nếu bị lỗi (Recover-Peding) thì set database về online
 --GO
 --DROP DATABASE QuanLyCoffee
+--sp_who 
+--KILL 53
 
 --CONTENTS PAGE.
 --1.CREATE DATABASE, TABLE
@@ -17,6 +19,7 @@ CREATE DATABASE QuanLyCoffee
 
 USE QuanLyCoffee
 
+--CREATE TABLE
 CREATE TABLE TaiKhoan
 	(tenDangNhap CHAR(8) NOT NULL PRIMARY KEY,
 	--tenDangNhap phải nhập 8 kí tự
@@ -140,6 +143,11 @@ INSERT ChiTietHD VALUES
 ('20040420HD000003', '20240419SP000002', 4, 0, 0)
 GO
 
+INSERT ChiTietHD VALUES
+('20040420HD000004', '20240419SP000007', 2, 0, 0),
+('20040420HD000005', '20240419SP000001', 1, 0, 0)
+GO
+
 --3. TRIGGER
 --TRIGGER KIỂM TRA ĐĂNG KÝ (CHÈN VÀO BẢNG TaiKhoan)
 CREATE TRIGGER RegisterAccount 
@@ -207,6 +215,33 @@ BEGIN
 			UPDATE SanPham
 			SET maSP = @MaSP
 			WHERE maSP = (SELECT maSP FROM inserted)
+		END
+END
+GO
+
+--TRIGGER AUTO CREATE ORDER_ID 
+CREATE TRIGGER auotoGenerateID_HoaDon ON HoaDon
+AFTER INSERT
+AS
+BEGIN
+	IF EXISTS (SELECT * FROM inserted)
+		BEGIN
+			DECLARE @NgayHienTai NVARCHAR(8), @SoCuoi NVARCHAR(6), @MaHD NVARCHAR(40)
+
+			SET @NgayHienTai = CONVERT(NVARCHAR(8), GETDATE(), 112)
+			
+			SELECT @SoCuoi = ISNULL(MAX(CAST(RIGHT(maHD, 6) AS INT)), 0)
+			FROM HoaDon
+			WHERE maHD <> (SELECT maHD FROM inserted)
+
+			DECLARE @ChuoiSo VARCHAR(6)
+			SET @ChuoiSo = RIGHT('000000' + CAST(@SoCuoi + 1 AS VARCHAR(6)), 6)
+
+			SET @MaHD = @NgayHienTai + 'HD' + @ChuoiSo
+
+			UPDATE HoaDon
+			SET maHD = @MaHD
+			WHERE maHD = (SELECT maHD FROM inserted)
 		END
 END
 GO

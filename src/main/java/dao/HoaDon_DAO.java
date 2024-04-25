@@ -13,6 +13,58 @@ public class HoaDon_DAO {
 
     }
 
+    public ArrayList<HoaDon> getAllOrder() {
+        ArrayList<HoaDon> orderList = new ArrayList<>();
+        ConnectDB.getInstance();
+        Connection con = ConnectDB.getConnection();
+        PreparedStatement sm = null;
+        try {
+            sm = con.prepareStatement("SELECT * FROM HoaDon");
+            ResultSet rs = sm.executeQuery();
+
+            while(rs.next()) {
+                String maHD = rs.getString("maHD");
+
+                LocalDate ngayLap = null;
+                Date date = rs.getDate("ngayLap");
+                if(date != null) {
+                    ngayLap = date.toLocalDate();
+                } else ngayLap = null;
+
+                Enum_PhuongThucTT pttt;
+                String pThuc = rs.getString("phuongThucThanhToan");
+                if(pThuc.equalsIgnoreCase("Chuyển khoản")) {
+                    pttt = Enum_PhuongThucTT.CHUYENKHOAN;
+                } else {
+                    pttt = Enum_PhuongThucTT.TIENMAT;
+                }
+
+                LocalDate gioVao = null;
+                Date dateVao = rs.getDate("gioVao");
+                if(dateVao != null) {
+                    gioVao = dateVao.toLocalDate();
+                } else gioVao = null;
+
+                LocalDate gioRa = null;
+                Date dateRa = rs.getDate("gioRa");
+                if(dateRa != null) {
+                    gioRa = dateRa.toLocalDate();
+                } else gioRa = null;
+
+                Double tongTien = rs.getDouble("tongTien");
+                Ban ban = new Ban(rs.getString("maBan"));
+                NhanVien nhanVien = new NhanVien(rs.getString("maNV"));
+                KhachHang khachHang = new KhachHang(rs.getString("maKH"));
+
+                HoaDon hd = new HoaDon(maHD, ngayLap, pttt, gioVao, gioRa, ban, nhanVien, khachHang);
+                orderList.add(hd);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return orderList;
+    }
+
     public Double getDailyRevenue() {
         Double revenue = (double) 0;
         ConnectDB.getInstance();
@@ -121,5 +173,63 @@ public class HoaDon_DAO {
             }
         }
         return revenue;
+    }
+
+    public HoaDon getOrder_ByID(String maHD) {
+        HoaDon hd = null;
+        ConnectDB.getInstance();
+        Connection con = ConnectDB.getConnection();
+        PreparedStatement sm = null;
+        try {
+            sm = con.prepareStatement(
+                    "SELECT * FROM HoaDon " +
+                            "WHERE maHD LIKE ?");
+            sm.setString(1, maHD);
+            ResultSet rs = sm.executeQuery();
+
+            while(rs.next()) {
+                LocalDate ngayLap = null;
+                Date date = rs.getDate("ngayLap");
+                if(date != null) {
+                    ngayLap = date.toLocalDate();
+                } else ngayLap = null;
+
+                Enum_PhuongThucTT pttt;
+                String pThuc = rs.getString("phuongThucThanhToan");
+                if(pThuc.equalsIgnoreCase("Chuyển khoản")) {
+                    pttt = Enum_PhuongThucTT.CHUYENKHOAN;
+                } else {
+                    pttt = Enum_PhuongThucTT.TIENMAT;
+                }
+
+                LocalDate gioVao = null;
+                Date dateVao = rs.getDate("gioVao");
+                if(dateVao != null) {
+                    gioVao = dateVao.toLocalDate();
+                } else gioVao = null;
+
+                LocalDate gioRa = null;
+                Date dateRa = rs.getDate("gioRa");
+                if(dateRa != null) {
+                    gioRa = dateRa.toLocalDate();
+                } else gioRa = null;
+
+                Double tongTien = rs.getDouble("tongTien");
+                Ban ban = new Ban(rs.getString("maBan"));
+                NhanVien nhanVien = new NhanVien(rs.getString("maNV"));
+                KhachHang khachHang = new KhachHang(rs.getString("maKH"));
+
+                hd = new HoaDon(maHD, ngayLap, pttt, gioVao, gioRa, ban, nhanVien, khachHang);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                sm.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return hd;
     }
 }

@@ -290,7 +290,7 @@ public class BH extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -396,7 +396,7 @@ public class BH extends javax.swing.JPanel {
         jTable2.setBackground(new java.awt.Color(214, 217, 224));
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"SP001", "Caramel",  new Double(54000.0),  new Byte((byte) 1),  new Double(54000.0), null},
+                {"SP001", "Caramel",  54000.0,  1,  54000.0, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null}
@@ -406,7 +406,7 @@ public class BH extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Byte.class, java.lang.Double.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {

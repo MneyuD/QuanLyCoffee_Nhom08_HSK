@@ -3,10 +3,7 @@ package dao;
 import connect.ConnectDB;
 import entity.*;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -97,8 +94,9 @@ public class ChiTietHD_DAO {
                 int soLuong = rs.getInt("soLuong");
                 HoaDon hoaDon = new HoaDon( maHD, ngayLap, pTTT, gioVao, gioRa, ban, nhanVien, khachHang) ;
 
+                Double donGia = 0.0;
                 Double thanhTien = (double) 0;
-                ChiTietHD chiTietHD = new ChiTietHD(hoaDon, sanPham, soLuong, thanhTien);
+                ChiTietHD chiTietHD = new ChiTietHD(hoaDon, sanPham, soLuong, donGia, thanhTien);
                 orderList.add(chiTietHD);
             }
         } catch (Exception e) {
@@ -130,7 +128,7 @@ public class ChiTietHD_DAO {
 
                 SanPham sp = new SanPham(maSP, tenSP, trangThai);
 
-                ChiTietHD cthd = new ChiTietHD(hd, sp, soLuong, 0);
+                ChiTietHD cthd = new ChiTietHD(hd, sp, soLuong, 0, 0);
                 orderList.add(cthd);
             }
 
@@ -169,7 +167,7 @@ public class ChiTietHD_DAO {
 
                 SanPham sp = new SanPham(maSP, tenSP, trangThai);
 
-                ChiTietHD cthd = new ChiTietHD(hd, sp, soLuong, 0);
+                ChiTietHD cthd = new ChiTietHD(hd, sp, soLuong, 0, 0);
                 orderList.add(cthd);
             }
         } catch (Exception e) {
@@ -204,7 +202,7 @@ public class ChiTietHD_DAO {
 
                 SanPham sp = new SanPham(maSP, tenSP, trangThai);
 
-                ChiTietHD cthd = new ChiTietHD(hd, sp, soLuong, 0);
+                ChiTietHD cthd = new ChiTietHD(hd, sp, soLuong, 0, 0);
                 orderList.add(cthd);
             }
 
@@ -213,4 +211,49 @@ public class ChiTietHD_DAO {
         }
         return orderList;
     }
+
+    public ArrayList<ChiTietHD> getOrderDetail_ByID(String maHD) {
+        ArrayList<ChiTietHD> cthdList = new ArrayList<>();
+        ConnectDB.getInstance();
+        Connection con = ConnectDB.getConnection();
+        PreparedStatement sm = null;
+        try {
+            sm = con.prepareStatement(
+                    "SELECT * FROM ChiTietHD CT " +
+                            "JOIN HoaDon HD ON CT.maHD = HD.maHD " +
+                            "WHERE HD.maHD LIKE ?");
+            sm.setString(1, maHD);
+            ResultSet rs = sm.executeQuery();
+
+            while(rs.next()) {
+                HoaDon hd = new HoaDon_DAO().getOrder_ByID(maHD);
+
+                SanPham sp = new SanPham_DAO().getProduct_ByID(rs.getString("maSP"));
+
+                int soLuong = rs.getInt("soLuong");
+                Double donGia = rs.getDouble("donGia");
+                Double thanhTien = rs.getDouble("thanhTien");
+
+                ChiTietHD cthd = new ChiTietHD(hd, sp, soLuong, donGia, thanhTien);
+                cthdList.add(cthd);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                sm.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return cthdList;
+    }
+
+    /*public static void main(String[] args) {
+        ConnectDB.getInstance().connect();
+
+        for (ChiTietHD cthd : new ChiTietHD_DAO().getOrderDetail_ByID("20040420HD000003")) {
+            System.out.println(cthd);
+        }
+    }*/
 }

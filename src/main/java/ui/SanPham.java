@@ -26,9 +26,9 @@ import java.util.ArrayList;
  */
 public class SanPham extends javax.swing.JPanel{
 
-    private static LoaiSP_DAO loaiSP_dao;
+    private LoaiSP_DAO loaiSP_dao;
     private SanPham_DAO sp_dao;
-
+    private int row;
 
 
     public SanPham() {
@@ -161,6 +161,13 @@ public class SanPham extends javax.swing.JPanel{
         btnChinhSuaSP.setFocusPainted(false);
         btnChinhSuaSP.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnChinhSuaSP.setRadius(30);
+
+        btnChinhSuaSP.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnChinhSuaSPActionPerformed(e);
+            }
+        });
 
         btnThemLoaiSP.setText("+");
         btnThemLoaiSP.setBorderPainted(false);
@@ -314,22 +321,22 @@ public class SanPham extends javax.swing.JPanel{
         jTableThongTinSP.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                int row = jTableThongTinSP.getSelectedRow();
+                row = jTableThongTinSP.getSelectedRow();
                 String maSP = modelSanPham.getValueAt(row,0).toString();
-                entity.SanPham sp = sp_dao.getProduct_ByID(maSP);
-                txtTenSP.setText(sp.getTenSP());
+                entity.SanPham sanPham = sp_dao.getProduct_ByID(maSP);
+                txtTenSP.setText(sanPham.getTenSP());
 
-                String ngayHetHan = String.valueOf(sp.getNgayHetHan());
+                String ngayHetHan = String.valueOf(sanPham.getNgayHetHan());
                 if(ngayHetHan.equals("null")){
                     txtNgayHetHan.setText("");
                 } else {
                     txtNgayHetHan.setText(ngayHetHan);
                 }
-                txtDonGia.setText(String.valueOf(sp.getDonGia()));
-                txtThue.setText(String.valueOf(sp.getThue()));
-                cbbLoaiSP.setSelectedItem(sp.getLoaiSP().getTenLoaiSP());
-                cbbKichCoSP.setSelectedItem(sp.getKickCo().getKichCo());
-                cbbTrangThai.setSelectedItem(sp.isTrangThai() ? "Còn" : "Hết");
+                txtDonGia.setText(String.valueOf(sanPham.getDonGia()));
+                txtThue.setText(String.valueOf(sanPham.getThue()));
+                cbbLoaiSP.setSelectedItem(sanPham.getLoaiSP().getTenLoaiSP());
+                cbbKichCoSP.setSelectedItem(sanPham.getKickCo().getKichCo());
+                cbbTrangThai.setSelectedItem(sanPham.isTrangThai() ? "Còn" : "Hết");
             }
 
             @Override
@@ -446,6 +453,41 @@ public class SanPham extends javax.swing.JPanel{
         });
     }// </editor-fold>
 
+    private void btnChinhSuaSPActionPerformed(ActionEvent e) {
+        if(row != -1) {
+            String maSP = modelSanPham.getValueAt(row, 0).toString();
+            String tenSP = txtTenSP.getText().trim();
+
+            String date = txtNgayHetHan.getText().trim();
+            LocalDate ngayHetHan;
+            if(date.isEmpty()){
+                ngayHetHan = null;
+            } else {
+                ngayHetHan = LocalDate.parse(txtNgayHetHan.getText().trim());
+            }
+
+            Double donGia = Double.valueOf(txtDonGia.getText().trim());
+            Double thue = Double.valueOf(txtThue.getText().trim());
+
+            String tenLoai = String.valueOf(cbbLoaiSP.getSelectedItem());
+            String maLoai = new LoaiSP_DAO().getProductType_ByName(tenLoai);
+            LoaiSP loaiSP = new LoaiSP(maLoai, tenLoai);
+
+            Enum_KichCo kichCo = Enum_KichCo.valueOf(String.valueOf(cbbKichCoSP.getSelectedItem()));
+
+            String trangThai = String.valueOf(cbbTrangThai.getSelectedIndex());
+            boolean status = false;
+            if(trangThai.equalsIgnoreCase("Còn"))
+                status = true;
+            entity.SanPham sp = new entity.SanPham(maSP,tenSP, donGia, thue, kichCo, ngayHetHan, status, loaiSP);
+
+            if(new SanPham_DAO().updateSanPham(sp)){
+                loadData(new SanPham_DAO().getAllProduct());
+                clearText();
+            }
+        }
+    }
+
     private void txtTenSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenSPActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTenSPActionPerformed
@@ -518,7 +560,7 @@ public class SanPham extends javax.swing.JPanel{
         cbbLoaiSP.setModel(new DefaultComboBoxModel<String>(items2));
     }
 
-    private void loadData(ArrayList<entity.SanPham> list){
+    private static void loadData(ArrayList<entity.SanPham> list){
         modelSanPham.setRowCount(0);
         for(entity.SanPham sp : list)
             modelSanPham.addRow(new Object[] {sp.getMaSP(), sp.getTenSP(), sp.getLoaiSP().getTenLoaiSP()
@@ -530,9 +572,9 @@ public class SanPham extends javax.swing.JPanel{
         txtNgayHetHan.setText("");
         txtDonGia.setText("");
         txtThue.setText("");
-        cbbLoaiSP.setSelectedItem(0);
-        cbbKichCoSP.setSelectedItem(0);
-        cbbTrangThai.setSelectedItem(0);
+        cbbLoaiSP.setSelectedIndex(0);
+        cbbKichCoSP.setSelectedIndex(0);
+        cbbTrangThai.setSelectedIndex(0);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -548,7 +590,7 @@ public class SanPham extends javax.swing.JPanel{
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPaneTTSP;
-    private javax.swing.table.DefaultTableModel modelSanPham;
+    private static javax.swing.table.DefaultTableModel modelSanPham;
     private javax.swing.JTable jTableThongTinSP;
     private javax.swing.JLabel lblDonGia;
     private javax.swing.JLabel lblHinhSp;

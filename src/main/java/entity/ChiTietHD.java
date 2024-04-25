@@ -6,12 +6,14 @@ public class ChiTietHD {
 	private HoaDon hd;
 	private SanPham sp ;
 	private int soLuong;
+	private double donGia;
 	private double thanhTien;
-	public ChiTietHD(HoaDon hd, SanPham sp, int soLuong, double thanhTien) {
+	public ChiTietHD(HoaDon hd, SanPham sp, int soLuong, double donGia, double thanhTien) {
 		super();
 		this.hd = hd;
 		this.sp = sp;
 		this.soLuong = soLuong;
+		this.donGia = 0;
 		this.thanhTien = 0;
 	}
 	public ChiTietHD(HoaDon hd, SanPham sp) {
@@ -78,5 +80,13 @@ public class ChiTietHD {
 
 	public double getThanhTien() {
 		return thanhTien;
+	}
+
+	public double getDonGia() {
+		return donGia;
+	}
+
+	public void setDonGia(double donGia) {
+		this.donGia = donGia;
 	}
 }

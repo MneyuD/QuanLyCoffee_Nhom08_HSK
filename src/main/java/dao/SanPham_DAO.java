@@ -215,4 +215,55 @@ public class SanPham_DAO {
         }
         return n > 0;
     }
+
+    public boolean updateSanPham(SanPham sp) {
+        ConnectDB.getInstance();
+        Connection con = ConnectDB.getConnection();
+        PreparedStatement stmt = null;
+        int n = 0;
+        try {
+            stmt = con.prepareStatement(
+                    "UPDATE SanPham " +
+                            "SET tenSP = ?, kichCo = ?, donGia = ?" +
+                            ", thue = ?, ngayHetHan = ?, trangThai = ?, maLoai = ? " +
+                            "WHERE maSP LIKE ?");
+            stmt.setString(1, sp.getTenSP());
+            stmt.setString(2, sp.getKickCo().getKichCo());
+            stmt.setDouble(3, sp.getDonGia());
+            stmt.setDouble(4, sp.getThue());
+            if (sp.getNgayHetHan() == null) {
+                stmt.setDate(5, null);
+            } else {
+                stmt.setDate(5, Date.valueOf(sp.getNgayHetHan()));
+            }
+            stmt.setBoolean(6, sp.isTrangThai());
+            stmt.setString(7, sp.getLoaiSP().getMaLoaiSP());
+            stmt.setString(8, sp.getMaSP());
+            n = stmt.executeUpdate();
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                stmt.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return n > 0;
+    }
+
+    public static void main(String[] args) {
+        ConnectDB.getInstance().connect();
+        SanPham sp = new SanPham_DAO().getProduct_ByID("20240419SP000005");
+        System.out.println("Chưa sửa 1: " + sp);
+        sp.setDonGia(Double.valueOf(30000));
+        System.out.println("Chưa sửa 2: " + sp);
+        if(new SanPham_DAO().updateSanPham(sp)) {
+            System.out.println("Đã sửa: " + sp);
+        } else {
+            System.out.println("Buyến");
+        }
+    }
 }

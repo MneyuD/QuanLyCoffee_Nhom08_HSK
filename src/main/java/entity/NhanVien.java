@@ -28,7 +28,11 @@ public class NhanVien {
 		super();
 		this.maNV = maNV;
 	}
-	/**
+
+    public NhanVien() {
+    }
+
+    /**
 	 * @return the maNV
 	 */
 	public String getMaNV() {

@@ -1,11 +1,27 @@
 package ui;
 
 
+import connect.ConnectDB;
+import dao.NhanVien_DAO;
+
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
 public class NhanVien extends javax.swing.JPanel {
 
 
+    private DefaultTableModel modelNhanVien;
+    private int row;
+
     public NhanVien() {
+        ConnectDB.getInstance().connect();
         initComponents();
+
+        loadData(new NhanVien_DAO().getAllEmployee());
     }
 
 
@@ -200,11 +216,18 @@ public class NhanVien extends javax.swing.JPanel {
         lblKhuVuc_Tim.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblKhuVuc_Tim.setText("Khu vực");
 
-        cbbKhuVuc_Tim.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Khu vực trong nhà", "Khu vực ngoài trời", "Khu vực quầy" }));
+        cbbKhuVuc_Tim.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả khu vực", "Khu vực trong nhà", "Khu vực ngoài trời", "Khu vực quầy" }));
+
+        cbbKhuVuc_Tim.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cbbKhuVuc_TimActionPerformed(e);
+            }
+        });
 
         jScrollPaneTTSP.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        jTableThongTinSP.setModel(new javax.swing.table.DefaultTableModel(
+        jTableThongTinSP.setModel(modelNhanVien = new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -215,7 +238,7 @@ public class NhanVien extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Mã NV", "Tên NV", "Khu vực", "Số điện thoại"
+                "Mã NV", "Tên NV", "Khu vực", "Lương"
             }
         ) {
             Class[] types = new Class [] {
@@ -292,7 +315,55 @@ public class NhanVien extends javax.swing.JPanel {
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-    }// </editor-fold>                        
+
+        txtTimNV.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                txtTimNVActionPerformed(e);
+            }
+        });
+
+        btnTimNV.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnTimNVActionPerformed(e);
+            }
+        });
+
+        jTableThongTinSP.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                
+            }
+        });
+    }// </editor-fold>
+
+    private void btnTimNVActionPerformed(ActionEvent e) {
+        String tenNV = txtTimNV.getText().trim();
+        if(tenNV.isEmpty()) {
+            loadData(new NhanVien_DAO().getAllEmployee());
+        } else {
+            loadData(new NhanVien_DAO().getEmployee_ByName(tenNV));
+        }
+    }
+
+    private void txtTimNVActionPerformed(ActionEvent e) {
+        String tenNV = txtTimNV.getText().trim();
+        if(tenNV.isEmpty()) {
+            loadData(new NhanVien_DAO().getAllEmployee());
+        } else {
+            loadData(new NhanVien_DAO().getEmployee_ByName(tenNV));
+        }
+    }
+
+    private void cbbKhuVuc_TimActionPerformed(ActionEvent e) {
+        String khuVuc = cbbKhuVuc_Tim.getSelectedItem().toString();
+        if(cbbKhuVuc_Tim.getSelectedIndex() == 0) {
+            loadData(new NhanVien_DAO().getAllEmployee());
+        } else {
+            loadData(new NhanVien_DAO().getEmployee_BySpace(khuVuc));
+        }
+    }
 
     private void txtTenNVActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
@@ -302,6 +373,12 @@ public class NhanVien extends javax.swing.JPanel {
         // TODO add your handling code here:
     }                                             
 
+    public void loadData(ArrayList<entity.NhanVien> list) {
+        modelNhanVien.setRowCount(0);
+        for(entity.NhanVien nv : list) {
+            modelNhanVien.addRow(new Object[] {nv.getMaNV(), nv.getTenNV(), nv.getKhuVuc().getKhuVuc(), nv.getLuong()});
+        }
+    }
 
     // Variables declaration - do not modify                     
     private MyButton btnSuaNV;

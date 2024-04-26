@@ -18,30 +18,46 @@ public class NhanVien_DAO {
         // TODO Auto-generated constructor stub
     }
 
-    public ArrayList<NhanVien> getAllNhanVien() {
+    public ArrayList<NhanVien> getAllEmployee() {
         ArrayList<NhanVien> dsNV = new ArrayList<NhanVien>();
         ConnectDB.getInstance();
         Connection con = ConnectDB.getConnection();
+        PreparedStatement sm = null;
         try {
-            PreparedStatement sm = con.prepareStatement("SELECT * FROM NhanVien");
+            sm = con.prepareStatement("SELECT * FROM NhanVien");
             ResultSet rs = sm.executeQuery();
 
             while(rs.next()) {
                 String maNV = rs.getString("maNV");
                 String ten = rs.getString("tenNV");
                 boolean phai = rs.getBoolean("gioiTinh");
-                Enum_KhuVuc khuVuc = Enum_KhuVuc.valueOf(rs.getString("khuVuc"));
+
+                String kVuc = rs.getString("khuVuc");
+                Enum_KhuVuc khuVuc = null;
+                if(kVuc.equals("Khu vực trong nhà")) {
+                    khuVuc = Enum_KhuVuc.TRONG_NHA;
+                } else if (kVuc.equals("Khu vực ngoài trời")) {
+                    khuVuc = Enum_KhuVuc.NGOAI_TROI;
+                } else if (kVuc.equals("Khu vực quầy")) {
+                    khuVuc = Enum_KhuVuc.QUAY;
+                }
+
                 Double luong = rs.getDouble("luong");
-                Double tienThuong = rs.getDouble("tienLuong");
+                Double tienThuong = rs.getDouble("tienThuong");
                 String soTKNH = rs.getString("soTKNganHang");
-                TaiKhoan taiKhoan = new TaiKhoan(rs.getString("maTK"));
+                TaiKhoan taiKhoan = new TaiKhoan(rs.getString("tenDangNhap"));
 
                 NhanVien nv = new NhanVien(maNV, ten, phai, khuVuc, luong, tienThuong, soTKNH, taiKhoan);
                 dsNV.add(nv);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            try {
+                sm.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
         return dsNV;
     }
@@ -60,7 +76,7 @@ public class NhanVien_DAO {
             stmt.setDouble(5, nv.getLuong());
             stmt.setDouble(6, nv.getTienThuong());
             stmt.setString(7, nv.getSoTKNH());
-            stmt.setString(8, nv.getTaiKhoan().getMaTK());
+            stmt.setString(8, nv.getTaiKhoan().getTenDangNhap());
             n = stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -88,7 +104,7 @@ public class NhanVien_DAO {
             stmt.setDouble(5, nv.getLuong());
             stmt.setDouble(6, nv.getTienThuong());
             stmt.setString(7, nv.getSoTKNH());
-            stmt.setString(8, nv.getTaiKhoan().getMaTK());
+            stmt.setString(8, nv.getTaiKhoan().getTenDangNhap());
             n = stmt.executeUpdate();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -103,24 +119,35 @@ public class NhanVien_DAO {
         return n > 0;
     }
 
-    public ArrayList<NhanVien> getNhanVienByMaNV(String maNV) {
+    public ArrayList<NhanVien> getEmployee_ByName(String tenNV) {
         ArrayList<NhanVien> dsNV = new ArrayList<NhanVien>();
         ConnectDB.getInstance();
         PreparedStatement stmt = null;
         Connection con = ConnectDB.getConnection();
         try {
-            stmt = con.prepareStatement("select * from NhanVien where maNV = ?");
-            stmt.setString(1, maNV);
+            stmt = con.prepareStatement("SELECT * FROM NhanVien WHERE tenNV LIKE ?");
+            stmt.setString(1, "%" + tenNV + "%");
             ResultSet rs = stmt.executeQuery();
+
             while(rs.next()) {
-                String ma = rs.getString(1);
-                String ten = rs.getString(2);
-                boolean phai = rs.getBoolean(3);
-                Enum_KhuVuc khuVuc = Enum_KhuVuc.valueOf(rs.getString(4));
-                Double luong = rs.getDouble(5);
-                Double tienThuong = rs.getDouble(6);
-                String soTKNH = rs.getString(7);
-                TaiKhoan taiKhoan = new TaiKhoan(rs.getString(8));
+                String maNV = rs.getString("maNV");
+                String ten = rs.getString("tenNV");
+                boolean phai = rs.getBoolean("gioiTinh");
+
+                String kVuc = rs.getString("khuVuc");
+                Enum_KhuVuc khuVuc = null;
+                if(kVuc.equals("Khu vực trong nhà")) {
+                    khuVuc = Enum_KhuVuc.TRONG_NHA;
+                } else if (kVuc.equals("Khu vực ngoài trời")) {
+                    khuVuc = Enum_KhuVuc.NGOAI_TROI;
+                } else if (kVuc.equals("Khu vực quầy")) {
+                    khuVuc = Enum_KhuVuc.QUAY;
+                }
+
+                Double luong = rs.getDouble("luong");
+                Double tienThuong = rs.getDouble("tienThuong");
+                String soTKNH = rs.getString("soTKNganHang");
+                TaiKhoan taiKhoan = new TaiKhoan(rs.getString("tenDangNhap"));
 
                 NhanVien nv = new NhanVien(maNV, ten, phai, khuVuc, luong, tienThuong, soTKNH, taiKhoan);
                 dsNV.add(nv);
@@ -137,15 +164,39 @@ public class NhanVien_DAO {
         }
         return dsNV;
     }
-    public boolean deleteNV(String maNV) {
+
+    public NhanVien getEmployee_ByID(String maNV) {
+        NhanVien nv = new NhanVien();
         ConnectDB.getInstance();
-        Connection con = ConnectDB.getConnection();
         PreparedStatement stmt = null;
-        int n = 0;
+        Connection con = ConnectDB.getConnection();
         try {
-            stmt = con.prepareStatement("delete NhanVien where maNV = ?");
+            stmt = con.prepareStatement("SELECT * FROM NhanVien WHERE maNV LIKE ?");
             stmt.setString(1, maNV);
-            n = stmt.executeUpdate();
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()) {
+                String ten = rs.getString("tenNV");
+                boolean phai = rs.getBoolean("gioiTinh");
+
+                String kVuc = rs.getString("khuVuc");
+                Enum_KhuVuc khuVuc = null;
+                if(kVuc.equals("Khu vực trong nhà")) {
+                    khuVuc = Enum_KhuVuc.TRONG_NHA;
+                } else if (kVuc.equals("Khu vực ngoài trời")) {
+                    khuVuc = Enum_KhuVuc.NGOAI_TROI;
+                } else if (kVuc.equals("Khu vực quầy")) {
+                    khuVuc = Enum_KhuVuc.QUAY;
+                }
+
+                Double luong = rs.getDouble("luong");
+                Double tienThuong = rs.getDouble("tienThuong");
+                String soTKNH = rs.getString("soTKNganHang");
+                TaiKhoan taiKhoan = new TaiKhoan(rs.getString("tenDangNhap"));
+
+                nv = new NhanVien(maNV, ten, phai, khuVuc, luong, tienThuong, soTKNH, taiKhoan);
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -155,5 +206,52 @@ public class NhanVien_DAO {
                 e.printStackTrace();
             }
         }
-        return n > 0;
-    }}
+        return nv;
+    }
+
+    public ArrayList<NhanVien> getEmployee_BySpace(String khuVuc) {
+        ConnectDB.getInstance();
+        Connection con = ConnectDB.getConnection();
+        ArrayList<NhanVien> empList = new ArrayList<>();
+        PreparedStatement sm = null;
+        try {
+            sm = con.prepareStatement(
+                    "SELECT * FROM NhanVien " +
+                            "WHERE khuVuc LIKE ?");
+            sm.setString(1, khuVuc);
+            ResultSet rs = sm.executeQuery();
+
+            while(rs.next()) {
+                String maNV = rs.getString("maNV");
+                String ten = rs.getString("tenNV");
+                boolean phai = rs.getBoolean("gioiTinh");
+
+                Enum_KhuVuc khuVucS = null;
+                if(khuVuc.equals("Khu vực trong nhà")) {
+                    khuVucS = Enum_KhuVuc.TRONG_NHA;
+                } else if (khuVuc.equals("Khu vực ngoài trời")) {
+                    khuVucS = Enum_KhuVuc.NGOAI_TROI;
+                } else if (khuVuc.equals("Khu vực quầy")) {
+                    khuVucS = Enum_KhuVuc.QUAY;
+                }
+
+                Double luong = rs.getDouble("luong");
+                Double tienThuong = rs.getDouble("tienThuong");
+                String soTKNH = rs.getString("soTKNganHang");
+                TaiKhoan taiKhoan = new TaiKhoan(rs.getString("tenDangNhap"));
+
+                NhanVien nv = new NhanVien(maNV, ten, phai, khuVucS, luong, tienThuong, soTKNH, taiKhoan);
+                empList.add(nv);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                sm.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return empList;
+    }
+}

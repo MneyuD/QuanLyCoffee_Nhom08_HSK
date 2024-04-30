@@ -4,6 +4,7 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.util.UIScale;
 import dao.DangNhap_DAO;
 import net.miginfocom.swing.MigLayout;
+import ui.BanHang;
 
 import javax.swing.*;
 import java.awt.*;
@@ -106,7 +107,7 @@ public class Login extends JPanel implements ActionListener , KeyListener {
     public void actionPerformed(ActionEvent e) {
         Object o = e.getSource();
         if(o.equals(cmdLogin)){
-            Boolean kqCheck = false;
+            boolean kqCheck = false;
             String username = txtUsername.getText().trim();
             String password = txtPassword.getText().trim();
 
@@ -138,7 +139,8 @@ public class Login extends JPanel implements ActionListener , KeyListener {
                         //TODO: mở trang chủ
                         lblErrorUser.setText("");
                         lblErrorPass.setText("");
-                        JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
+//                        JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
+                        new BanHang().setVisible(true);
                     }
                 } else {
 

@@ -4,6 +4,10 @@
  */
 package ui;
 
+import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import java.awt.*;
+
 /**
  *
  * @author Admin
@@ -51,7 +55,7 @@ public class BH extends javax.swing.JPanel {
         tableHoaDonGiao = new javax.swing.JTable();
         panelRight = new javax.swing.JPanel();
         // Variables declaration - do not modify//GEN-BEGIN:variables
-        javax.swing.JButton jButton11 = new javax.swing.JButton();
+        javax.swing.JButton btn_ThemDonHang = new javax.swing.JButton();
         btnXoaDonHang = new javax.swing.JButton();
         tabbedPaneHoaDon = new javax.swing.JTabbedPane();
         panelHoaDon = new javax.swing.JPanel();
@@ -71,7 +75,7 @@ public class BH extends javax.swing.JPanel {
         txtTienKhac = new javax.swing.JTextField();
         lblGhiChu = new javax.swing.JLabel();
         scrollPaneGhiChu = new javax.swing.JScrollPane();
-        txtGhiChu = new javax.swing.JTextArea();
+        jtextArea_GhiChu = new javax.swing.JTextArea();
         panelChiTiet = new javax.swing.JPanel();
         btnHuyDonHang = new javax.swing.JButton();
         btnTachDonHang = new javax.swing.JButton();
@@ -85,7 +89,11 @@ public class BH extends javax.swing.JPanel {
 
         lblTenSanPham.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblTenSanPham.setText("Tên sản phẩm:");
+        lblTenSanPham.setForeground(Color.black);
 
+        txtTenSanPham.setForeground(Color.black);
+        txtTenSanPham.setBackground(Color.white);
+        txtTenSanPham.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
         txtTenSanPham.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -102,11 +110,23 @@ public class BH extends javax.swing.JPanel {
 
         comboBoxLoaiSanPham.setBackground(new java.awt.Color(231, 230, 232));
         comboBoxLoaiSanPham.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboBoxLoaiSanPham.setBackground(Color.white);
+        comboBoxLoaiSanPham.setForeground(Color.black);
 
         scrollPaneSanPham.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPaneSanPham.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPaneSanPham.setBackground(Color.white);
 
         hinh1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        hinh1.setBackground(Color.white);
+        hinh2.setBackground(Color.white);
+        hinh3.setBackground(Color.white);
+        hinh4.setBackground(Color.white);
+        hinh5.setBackground(Color.white);
+        hinh6.setBackground(Color.white);
+        hinh7.setBackground(Color.white);
+        hinh8.setBackground(Color.white);
+        hinh9.setBackground(Color.white);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(hinh1);
         hinh1.setLayout(jPanel7Layout);
@@ -120,6 +140,7 @@ public class BH extends javax.swing.JPanel {
         );
 
         hinh4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(hinh4);
         hinh4.setLayout(jPanel8Layout);
@@ -225,6 +246,7 @@ public class BH extends javax.swing.JPanel {
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(panelSanPham);
         panelSanPham.setLayout(jPanel2Layout);
+        panelSanPham.setBackground(Color.white);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -272,13 +294,21 @@ public class BH extends javax.swing.JPanel {
 
         lblHoaDonCho.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblHoaDonCho.setText("Hóa đơn chờ:");
+        lblHoaDonCho.setForeground(Color.black);
 
         lblLoaiSanPham.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblLoaiSanPham.setText("Loại sản phẩm:");
+        lblLoaiSanPham.setForeground(Color.black);
 
         lblHoaDonGiao.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblHoaDonGiao.setText("Hóa đơn giao");
+        lblHoaDonGiao.setForeground(Color.black);
 
+        tableHoaDonCho.setBackground(Color.white);
+        tableHoaDonCho.setForeground(Color.black);
+        tableHoaDonCho.setShowGrid(true);
+        tableHoaDonCho.setGridColor(Color.black);
+        tableHoaDonCho.setRowHeight(25);
         tableHoaDonCho.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"HD001", "Phan Khánh Chương", "A", "12:47 01-04-2024", null, null},
@@ -300,11 +330,17 @@ public class BH extends javax.swing.JPanel {
         });
         tableHoaDonCho.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tableHoaDonCho.setSelectionBackground(new java.awt.Color(204, 204, 204));
-        tableHoaDonCho.setShowGrid(true);
         tableHoaDonCho.setSurrendersFocusOnKeystroke(true);
         tableHoaDonCho.getTableHeader().setResizingAllowed(false);
         tableHoaDonCho.getTableHeader().setReorderingAllowed(false);
         scrollPaneHoaDonCho.setViewportView(tableHoaDonCho);
+        scrollPaneHoaDonCho.setBackground(Color.white);
+
+        tableHoaDonGiao.setBackground(Color.white);
+        tableHoaDonGiao.setForeground(Color.black);
+        tableHoaDonGiao.setShowGrid(true);
+        tableHoaDonGiao.setGridColor(Color.black);
+        tableHoaDonGiao.setRowHeight(25);
 
         tableHoaDonGiao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -321,6 +357,7 @@ public class BH extends javax.swing.JPanel {
         tableHoaDonGiao.getTableHeader().setResizingAllowed(false);
         tableHoaDonGiao.getTableHeader().setReorderingAllowed(false);
         scrollPaneHoaDonGiao.setViewportView(tableHoaDonGiao);
+        scrollPaneHoaDonGiao.setBackground(Color.white);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(panelLeft);
         panelLeft.setLayout(jPanel5Layout);
@@ -377,23 +414,32 @@ public class BH extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        Font f = new Font("Segoe UI", 1, 14);
         panelRight.setBackground(new java.awt.Color(250, 238, 232));
         panelRight.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton11.setText("Thêm đơn hàng");
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
+        btn_ThemDonHang.setText("Thêm đơn hàng");
+        btn_ThemDonHang.setFont(f);
+
+        btn_ThemDonHang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton11ActionPerformed(evt);
             }
         });
 
         btnXoaDonHang.setText("Xóa đơn hàng");
+        btnXoaDonHang.setFont(f);
         btnXoaDonHang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton12ActionPerformed(evt);
             }
         });
 
+        tableHoaDon.setBackground(Color.white);
+        tableHoaDon.setForeground(Color.black);
+        tableHoaDon.setShowGrid(true);
+        tableHoaDon.setGridColor(Color.black);
+        tableHoaDon.setRowHeight(25);
         tableHoaDon.setBackground(new java.awt.Color(214, 217, 224));
         tableHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -416,6 +462,7 @@ public class BH extends javax.swing.JPanel {
         });
         tableHoaDon.setColumnSelectionAllowed(true);
         scrollPaneHoaDon.setViewportView(tableHoaDon);
+        scrollPaneHoaDon.setBackground(Color.white);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(panelHoaDon);
         panelHoaDon.setLayout(jPanel3Layout);
@@ -437,31 +484,57 @@ public class BH extends javax.swing.JPanel {
 
         lblSDT.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblSDT.setText("SĐT:");
+        lblSDT.setForeground(Color.black);
+
+        txtSDT.setBackground(Color.white);
+        txtSDT.setForeground(Color.black);
+        txtSDT.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 
         btnTimSDT.setText("🔍︎");
 
         lblHoTen.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblHoTen.setText("Họ tên:");
+        lblHoTen.setForeground(Color.black);
+        txtHoTen.setBackground(Color.white);
+        txtHoTen.setForeground(Color.black);
+        txtHoTen.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 
         btnThemKhachHang.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnThemKhachHang.setText("+");
 
         lblDiemTichLuy.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblDiemTichLuy.setText("Điểm tích lũy:");
+        lblDiemTichLuy.setForeground(Color.black);
+
+        txtDiemTichLuy.setBackground(Color.white);
+        txtDiemTichLuy.setForeground(Color.black);
+        txtDiemTichLuy.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+
 
         checkBoxDoiDiem.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         checkBoxDoiDiem.setText("Đổi điểm");
+        checkBoxDoiDiem.setForeground(Color.black);
 
         lblTienKhac.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblTienKhac.setText("Tiền khác:");
         lblTienKhac.setToolTipText("");
+        lblTienKhac.setForeground(Color.black);
+
+        txtTienKhac.setBackground(Color.white);
+        txtTienKhac.setForeground(Color.black);
+        txtTienKhac.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 
         lblGhiChu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblGhiChu.setText("Ghi chú:");
+        lblGhiChu.setForeground(Color.black);
 
-        txtGhiChu.setColumns(20);
-        txtGhiChu.setRows(5);
-        scrollPaneGhiChu.setViewportView(txtGhiChu);
+        jtextArea_GhiChu.setColumns(20);
+        jtextArea_GhiChu.setRows(5);
+        jtextArea_GhiChu.setBackground(Color.white);
+        jtextArea_GhiChu.setForeground(Color.black);
+        jtextArea_GhiChu.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+        scrollPaneGhiChu.setViewportView(jtextArea_GhiChu);
+        scrollPaneGhiChu.setBackground(Color.white);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(panelKhachHang);
         panelKhachHang.setLayout(jPanel4Layout);
@@ -476,7 +549,7 @@ public class BH extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
                         .addComponent(lblDiemTichLuy)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
-                        .addComponent(checkBoxDoiDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(checkBoxDoiDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(txtHoTen, javax.swing.GroupLayout.Alignment.LEADING)
@@ -562,7 +635,7 @@ public class BH extends javax.swing.JPanel {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton11)
+                .addComponent(btn_ThemDonHang)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnXoaDonHang)
                 .addGap(46, 46, 46))
@@ -589,7 +662,7 @@ public class BH extends javax.swing.JPanel {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton11)
+                    .addComponent(btn_ThemDonHang)
                     .addComponent(btnXoaDonHang))
                 .addGap(23, 23, 23)
                 .addComponent(tabbedPaneHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -688,7 +761,7 @@ public class BH extends javax.swing.JPanel {
     private javax.swing.JTable tableHoaDonGiao;
     private javax.swing.JTable tableHoaDon;
     private javax.swing.JTable tableHoaDonCho;
-    private javax.swing.JTextArea txtGhiChu;
+    private javax.swing.JTextArea jtextArea_GhiChu;
     private javax.swing.JTextField txtTenSanPham;
     private javax.swing.JTextField txtSDT;
     private javax.swing.JTextField txtHoTen;

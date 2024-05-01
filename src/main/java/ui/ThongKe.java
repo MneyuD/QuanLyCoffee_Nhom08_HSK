@@ -9,12 +9,12 @@ import connect.ConnectDB;
 import dao.ChiTietHD_DAO;
 import dao.HoaDon_DAO;
 import dao.LoaiSP_DAO;
-import dao.SanPham_DAO;
 import entity.ChiTietHD;
-import entity.SanPham;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
@@ -75,14 +75,14 @@ public class ThongKe extends javax.swing.JPanel {
         btnXuatTK = new ui.MyButton();
         jPanelDuoi = new javax.swing.JPanel();
         lblThongKe = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jScrollPane_ThongTinSP = new javax.swing.JScrollPane();
+        jtable_ThongTinSP = new javax.swing.JTable();
         jPanelXuatTKDuoi = new javax.swing.JPanel();
         txtTuNgay_Loc = new javax.swing.JTextField();
         lblTu1 = new javax.swing.JLabel();
         lblDen1 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lbl_LoaiSP = new javax.swing.JLabel();
+        lbl_TrangThai = new javax.swing.JLabel();
         cbbLoaiSP_Loc = new javax.swing.JComboBox<>();
         cbbTrangThaiSP_Loc = new javax.swing.JComboBox<>();
         txtDenNgay_Loc = new javax.swing.JTextField();
@@ -243,9 +243,20 @@ public class ThongKe extends javax.swing.JPanel {
 
         lblTuNgay.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblTuNgay.setText("Từ ngày:");
+        lblTuNgay.setForeground(Color.BLACK);
+
+        txtTuNgay_TrongKhungThongKe.setBackground(Color.white);
+        txtTuNgay_TrongKhungThongKe.setForeground(Color.black);
+        txtTuNgay_TrongKhungThongKe.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 
         lblDenNgay.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblDenNgay.setText("Đến ngày:");
+        lblDenNgay.setForeground(Color.BLACK);
+
+
+        txtDenNgay_TrungKhungThongKe.setBackground(Color.white);
+        txtDenNgay_TrungKhungThongKe.setForeground(Color.black);
+        txtDenNgay_TrungKhungThongKe.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 
         txtTuNgay_TrongKhungThongKe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -259,6 +270,7 @@ public class ThongKe extends javax.swing.JPanel {
         btnXuatTK.setFocusPainted(false);
         btnXuatTK.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnXuatTK.setRadius(10);
+        btnXuatTK.setForeground(Color.BLACK);
 
         btnXuatTK.addActionListener(new ActionListener() {
             @Override
@@ -340,8 +352,15 @@ public class ThongKe extends javax.swing.JPanel {
 
         lblThongKe.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblThongKe.setText("Thống kê sản phẩm:");
+        lblThongKe.setForeground(Color.BLACK);
 
-        jTable1.setModel(modelSanPham = new javax.swing.table.DefaultTableModel(
+
+        jtable_ThongTinSP.setBackground(Color.white);
+        jtable_ThongTinSP.setForeground(Color.black);
+        jtable_ThongTinSP.setGridColor(Color.black);
+        jtable_ThongTinSP.setShowGrid(true);
+        jtable_ThongTinSP.setModel(modelSanPham = new javax.swing.table.DefaultTableModel(
+
                 new Object [][] {
                         {null, null, null, null},
                         {null, null, null, null},
@@ -360,26 +379,42 @@ public class ThongKe extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        jTable1.setRowHeight(25);
+        jtable_ThongTinSP.setRowHeight(25);
 
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane_ThongTinSP.setViewportView(jtable_ThongTinSP);
+        jScrollPane_ThongTinSP.setBackground(Color.white);
 
         jPanelXuatTKDuoi.setBackground(new java.awt.Color(250, 238, 232));
 
         lblTu1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblTu1.setText("Từ ngày:");
+        lblTu1.setForeground(Color.black);
+
+        txtTuNgay_Loc.setBackground(Color.white);
+        txtTuNgay_Loc.setForeground(Color.black);
+        txtTuNgay_Loc.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+
+
 
         lblDen1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblDen1.setText("Đến ngày:");
+        lblDen1.setForeground(Color.black);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel1.setText("Loại sản phẩm:");
+        txtDenNgay_Loc.setBackground(Color.white);
+        txtDenNgay_Loc.setForeground(Color.black);
+        txtDenNgay_Loc.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel2.setText("Trạng thái:");
+        lbl_LoaiSP.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbl_LoaiSP.setText("Loại sản phẩm:");
+        lbl_LoaiSP.setForeground(Color.black);
+
+        lbl_TrangThai.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbl_TrangThai.setText("Trạng thái:");
+        lbl_TrangThai.setForeground(Color.black);
 
         cbbLoaiSP_Loc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả" }));
-
+        cbbLoaiSP_Loc.setBackground(Color.white);
+        cbbLoaiSP_Loc.setForeground(Color.black);
         cbbLoaiSP_Loc.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -389,6 +424,8 @@ public class ThongKe extends javax.swing.JPanel {
 
         cbbTrangThaiSP_Loc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Còn", "Hết" }));
 
+        cbbTrangThaiSP_Loc.setBackground(Color.white);
+        cbbTrangThaiSP_Loc.setForeground(Color.black);
         cbbTrangThaiSP_Loc.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -408,10 +445,10 @@ public class ThongKe extends javax.swing.JPanel {
                                                 .addGroup(jPanelXuatTKDuoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(lblTu1)
                                                         .addComponent(txtTuNgay_Loc, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addComponent(jLabel1))
+                                        .addComponent(lbl_LoaiSP))
                                 .addGap(70, 70, 70)
                                 .addGroup(jPanelXuatTKDuoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel2)
+                                        .addComponent(lbl_TrangThai)
                                         .addGroup(jPanelXuatTKDuoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(txtDenNgay_Loc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(cbbTrangThaiSP_Loc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -431,8 +468,8 @@ public class ThongKe extends javax.swing.JPanel {
                                         .addComponent(txtDenNgay_Loc, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(34, 34, 34)
                                 .addGroup(jPanelXuatTKDuoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel2)
-                                        .addComponent(jLabel1))
+                                        .addComponent(lbl_TrangThai)
+                                        .addComponent(lbl_LoaiSP))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanelXuatTKDuoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(cbbLoaiSP_Loc, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -445,6 +482,7 @@ public class ThongKe extends javax.swing.JPanel {
         btnLoc.setBorderPainted(false);
         btnLoc.setFocusPainted(false);
         btnLoc.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnLoc.setForeground(Color.black);
 
         javax.swing.GroupLayout jPanelDuoiLayout = new javax.swing.GroupLayout(jPanelDuoi);
         jPanelDuoi.setLayout(jPanelDuoiLayout);
@@ -456,7 +494,7 @@ public class ThongKe extends javax.swing.JPanel {
                                         .addGroup(jPanelDuoiLayout.createSequentialGroup()
                                                 .addComponent(lblThongKe)
                                                 .addGap(0, 0, Short.MAX_VALUE))
-                                        .addComponent(jScrollPane1))
+                                        .addComponent(jScrollPane_ThongTinSP))
                                 .addGroup(jPanelDuoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(jPanelDuoiLayout.createSequentialGroup()
                                                 .addGap(56, 56, 56)
@@ -480,7 +518,7 @@ public class ThongKe extends javax.swing.JPanel {
                                         .addGroup(jPanelDuoiLayout.createSequentialGroup()
                                                 .addComponent(lblThongKe)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
+                                                .addComponent(jScrollPane_ThongTinSP, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -600,8 +638,8 @@ public class ThongKe extends javax.swing.JPanel {
     private ui.MyButton btnXuatTK;
     private javax.swing.JComboBox<String> cbbLoaiSP_Loc ;
     private javax.swing.JComboBox<String> cbbTrangThaiSP_Loc;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lbl_LoaiSP;
+    private javax.swing.JLabel lbl_TrangThai;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel1Thang;
     private javax.swing.JPanel jPanelNam;
@@ -611,8 +649,8 @@ public class ThongKe extends javax.swing.JPanel {
     private javax.swing.JPanel jPanelTren;
     private javax.swing.JPanel jPanelTuy;
     private javax.swing.JPanel jPanelXuatTKDuoi;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane_ThongTinSP;
+    private javax.swing.JTable jtable_ThongTinSP;
     private javax.swing.JLabel lblNam;
     private javax.swing.JLabel lblDen1;
     private javax.swing.JLabel lblDenNgay;

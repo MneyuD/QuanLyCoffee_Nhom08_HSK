@@ -4,7 +4,10 @@ package ui;
 import connect.ConnectDB;
 import dao.NhanVien_DAO;
 
+import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -37,7 +40,7 @@ public class NhanVien extends javax.swing.JPanel {
         lblNgaySinhNV = new javax.swing.JLabel();
         lblEmail = new javax.swing.JLabel();
         lblSdt = new javax.swing.JLabel();
-        lblTrangThai = new javax.swing.JLabel();
+        lbl_MatKhau = new javax.swing.JLabel();
         txtMaNV = new javax.swing.JTextField();
         txtTenNV = new javax.swing.JTextField();
         txtNgaySinhNV = new javax.swing.JTextField();
@@ -65,27 +68,67 @@ public class NhanVien extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(250, 238, 232));
 
         lblHinhNV.setText("Hình SP");
+        lblHinhNV.setForeground(Color.BLACK);
 
         lblMaNV.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblMaNV.setText("Mã nhân viên:");
+        lblMaNV.setForeground(Color.BLACK);
+
+        txtMaNV.setForeground(Color.black);
+        txtMaNV.setBackground(Color.white);
+        txtMaNV.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 
         lblTenNV.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblTenNV.setText("Họ Tên:");
+        lblTenNV.setForeground(Color.BLACK);
+
+        txtTenNV.setForeground(Color.black);
+        txtTenNV.setBackground(Color.white);
+        txtTenNV.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 
         lblGioiTinhNV.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblGioiTinhNV.setText("Giới tính:");
+        lblGioiTinhNV.setForeground(Color.BLACK);
+
+        cbbGioiTinhNV.setForeground(Color.black);
+        cbbGioiTinhNV.setBackground(Color.white);
 
         lblNgaySinhNV.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblNgaySinhNV.setText("Ngày sinh:");
+        lblNgaySinhNV.setForeground(Color.BLACK);
+
+        txtNgaySinhNV.setForeground(Color.black);
+        txtNgaySinhNV.setBackground(Color.white);
+        txtNgaySinhNV.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+
 
         lblEmail.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblEmail.setText("Email:");
+        lblEmail.setForeground(Color.BLACK);
+
+        txtEmail.setForeground(Color.black);
+        txtEmail.setBackground(Color.white);
+        txtEmail.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+
 
         lblSdt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblSdt.setText("Số điện thoại:");
+        lblSdt.setForeground(Color.BLACK);
 
-        lblTrangThai.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblTrangThai.setText("Mật khẩu:");
+
+        txtSDT.setForeground(Color.black);
+        txtSDT.setBackground(Color.white);
+        txtSDT.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+
+        lbl_MatKhau.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbl_MatKhau.setText("Mật khẩu:");
+        lbl_MatKhau.setForeground(Color.BLACK);
+
+        txtMK.setForeground(Color.black);
+        txtMK.setBackground(Color.white);
+        txtMK.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+
+
 
         txtTenNV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,9 +147,18 @@ public class NhanVien extends javax.swing.JPanel {
 
         lblKhuVuc.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblKhuVuc.setText("Khu vực:");
+        lblKhuVuc.setForeground(Color.black);
+
+        cbbKhuVucNV.setBackground(Color.white);
+        cbbKhuVucNV.setForeground(Color.BLACK);
 
         lblGhiChu.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblGhiChu.setText("Ghi chú:");
+        lblGhiChu.setForeground(Color.black);
+
+        txtGhiChu.setForeground(Color.black);
+        txtGhiChu.setBackground(Color.white);
+        txtGhiChu.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 
         btnThemNV.setText("Thêm");
         btnThemNV.setBorderColor(new java.awt.Color(0, 0, 0));
@@ -114,6 +166,7 @@ public class NhanVien extends javax.swing.JPanel {
         btnThemNV.setFocusPainted(false);
         btnThemNV.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnThemNV.setRadius(30);
+        btnThemNV.setForeground(Color.BLACK);
 
         btnSuaNV.setText("Cập nhật");
         btnSuaNV.setBorderColor(new java.awt.Color(0, 0, 0));
@@ -121,6 +174,8 @@ public class NhanVien extends javax.swing.JPanel {
         btnSuaNV.setFocusPainted(false);
         btnSuaNV.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnSuaNV.setRadius(30);
+        btnSuaNV.setForeground(Color.BLACK);
+
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -140,7 +195,7 @@ public class NhanVien extends javax.swing.JPanel {
                             .addComponent(lblNgaySinhNV)
                             .addComponent(lblEmail)
                             .addComponent(lblSdt)
-                            .addComponent(lblTrangThai)
+                            .addComponent(lbl_MatKhau)
                             .addComponent(lblKhuVuc)
                             .addComponent(lblGhiChu))
                         .addGap(28, 28, 28)
@@ -191,7 +246,7 @@ public class NhanVien extends javax.swing.JPanel {
                     .addComponent(lblSdt))
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTrangThai)
+                    .addComponent(lbl_MatKhau)
                     .addComponent(txtMK, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -212,9 +267,18 @@ public class NhanVien extends javax.swing.JPanel {
 
         lblTimNV.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblTimNV.setText("Tên nhân viên");
+        lblTimNV.setForeground(Color.BLACK);
+
+        txtTimNV.setForeground(Color.black);
+        txtTimNV.setBackground(Color.white);
+        txtTimNV.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 
         lblKhuVuc_Tim.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblKhuVuc_Tim.setText("Khu vực");
+        lblKhuVuc_Tim.setForeground(Color.BLACK);
+
+        cbbKhuVuc_Tim.setForeground(Color.black);
+        cbbKhuVuc_Tim.setBackground(Color.white);
 
         cbbKhuVuc_Tim.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả khu vực", "Khu vực trong nhà", "Khu vực ngoài trời", "Khu vực quầy" }));
 
@@ -227,6 +291,10 @@ public class NhanVien extends javax.swing.JPanel {
 
         jScrollPaneTTSP.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
+        jTableThongTinSP.setBackground(Color.white);
+        jTableThongTinSP.setForeground(Color.black);
+        jTableThongTinSP.setGridColor(Color.black);
+        jTableThongTinSP.setShowGrid(true);
         jTableThongTinSP.setModel(modelNhanVien = new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -251,6 +319,7 @@ public class NhanVien extends javax.swing.JPanel {
         });
         jTableThongTinSP.setRowHeight(25);
         jScrollPaneTTSP.setViewportView(jTableThongTinSP);
+        jScrollPaneTTSP.setBackground(Color.white);
 
         btnTimNV.setText("Tìm");
         btnTimNV.setBorderColor(new java.awt.Color(0, 0, 0));
@@ -258,6 +327,8 @@ public class NhanVien extends javax.swing.JPanel {
         btnTimNV.setFocusPainted(false);
         btnTimNV.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnTimNV.setRadius(10);
+        btnTimNV.setForeground(Color.BLACK);
+
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -402,7 +473,7 @@ public class NhanVien extends javax.swing.JPanel {
     private javax.swing.JLabel lblSdt;
     private javax.swing.JLabel lblTenNV;
     private javax.swing.JLabel lblTimNV;
-    private javax.swing.JLabel lblTrangThai;
+    private javax.swing.JLabel lbl_MatKhau;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtGhiChu;
     private javax.swing.JTextField txtMK;

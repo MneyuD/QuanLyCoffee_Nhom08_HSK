@@ -11,8 +11,10 @@ import entity.Enum_KichCo;
 import entity.LoaiSP;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import javax.swing.table.DefaultTableModel;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -86,25 +88,52 @@ public class SanPham extends javax.swing.JPanel{
         jPanel1.setBackground(new java.awt.Color(250, 238, 232));
 
         lblHinhSp.setText("Hình SP");
+        lblHinhSp.setForeground(Color.BLACK);
 
         lblTenSP.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblTenSP.setText("Tên sản phẩm:");
+        lblTenSP.setForeground(Color.BLACK);
 
         lblLoaiSP.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblLoaiSP.setText("Loại sản phẩm:");
+        lblLoaiSP.setForeground(Color.BLACK);
+
+        cbbLoaiSP.setBackground(Color.white);
+        cbbLoaiSP.setForeground(Color.black);
 
         lblDonGia.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblDonGia.setText("Đơn giá:");
+        lblDonGia.setForeground(Color.BLACK);
+
+        txtDonGia.setBackground(Color.white);
+        txtDonGia.setForeground(Color.black);
+        txtDonGia.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 
         lblMoTa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblMoTa.setText("Mô tả:");
+        lblMoTa.setForeground(Color.BLACK);
+
+        txtMoTa.setBackground(Color.white);
+        txtMoTa.setForeground(Color.black);
+        txtMoTa.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 
         lblKichCo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblKichCo.setText("Kích cỡ:");
+        lblKichCo.setForeground(Color.BLACK);
+
+        cbbKichCoSP.setBackground(Color.white);
+        cbbKichCoSP.setForeground(Color.black);
 
         lblTrangThai.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblTrangThai.setText("Trạng thái:");
+        lblTrangThai.setForeground(Color.BLACK);
 
+        cbbTrangThai.setBackground(Color.white);
+        cbbTrangThai.setForeground(Color.black);
+
+        txtTenSP.setBackground(Color.white);
+        txtTenSP.setForeground(Color.black);
+        txtTenSP.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
         txtTenSP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTenSPActionPerformed(evt);
@@ -133,9 +162,22 @@ public class SanPham extends javax.swing.JPanel{
 
         lblNgayHetHan.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblNgayHetHan.setText("Ngày hết hạn:");
+        lblNgayHetHan.setForeground(Color.black);
+
+        txtNgayHetHan.setBackground(Color.white);
+        txtNgayHetHan.setForeground(Color.black);
+        txtNgayHetHan.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+
 
         lblThue.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblThue.setText("Thuế:");
+        lblThue.setForeground(Color.black);
+        txtThue.setBackground(Color.white);
+        txtThue.setForeground(Color.black);
+        txtThue.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+
+
+
 
         txtThue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,6 +191,7 @@ public class SanPham extends javax.swing.JPanel{
         btnThemSP.setFocusPainted(false);
         btnThemSP.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnThemSP.setRadius(30);
+        btnThemSP.setForeground(Color.BLACK);
         btnThemSP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThemSPActionPerformed(evt);
@@ -161,6 +204,7 @@ public class SanPham extends javax.swing.JPanel{
         btnChinhSuaSP.setFocusPainted(false);
         btnChinhSuaSP.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnChinhSuaSP.setRadius(30);
+        btnChinhSuaSP.setForeground(Color.BLACK);
 
         btnChinhSuaSP.addActionListener(new ActionListener() {
             @Override
@@ -173,6 +217,7 @@ public class SanPham extends javax.swing.JPanel{
         btnThemLoaiSP.setBorderPainted(false);
         btnThemLoaiSP.setFocusPainted(false);
         btnThemLoaiSP.setRadius(10);
+        btnThemLoaiSP.setForeground(Color.BLACK);
 
         cbbKichCoSP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "S", "M", "L" }));
 
@@ -265,10 +310,18 @@ public class SanPham extends javax.swing.JPanel{
 
         lblTenSp.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblTenSp.setText("Tên sản phẩm");
+        lblTenSp.setForeground(Color.BLACK);
+
+        txtTimSP.setForeground(Color.black);
+        txtTimSP.setBackground(Color.white);
+        txtTimSP.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 
         lblLoaiSP_TimKiem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblLoaiSP_TimKiem.setText("Loại sản phẩm");
+        lblLoaiSP_TimKiem.setForeground(Color.black);
 
+        cbbLoaiSP_TimKiem.setForeground(Color.black);
+        cbbLoaiSP_TimKiem.setBackground(Color.white);
         cbbLoaiSP_TimKiem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nước", "Đồ ăn", " " }));
         cbbLoaiSP_TimKiem.addActionListener(new ActionListener() {
             @Override
@@ -286,6 +339,10 @@ public class SanPham extends javax.swing.JPanel{
 
         lblTrangThai_TimKiem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblTrangThai_TimKiem.setText("Trạng thái");
+        lblTrangThai_TimKiem.setForeground(Color.black);
+
+        cbbTrangThai_TimKiem.setForeground(Color.black);
+        cbbTrangThai_TimKiem.setBackground(Color.white);
 
         cbbTrangThai_TimKiem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Còn", "Hết" +
                 "" }));
@@ -304,6 +361,12 @@ public class SanPham extends javax.swing.JPanel{
         });
         jScrollPaneTTSP.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
+        jScrollPaneTTSP.setBackground(Color.white);
+
+        jTableThongTinSP.setBackground(Color.white);
+        jTableThongTinSP.setForeground(Color.black);
+        jTableThongTinSP.setGridColor(Color.black);
+        jTableThongTinSP.setShowGrid(true);
         jTableThongTinSP.setModel(modelSanPham = new javax.swing.table.DefaultTableModel(
                 new String [] {"Mã SP", "Tên SP", "Loại SP", "Kích cỡ", "Đơn giá", "Trạng Thái"},
                 0
@@ -368,6 +431,7 @@ public class SanPham extends javax.swing.JPanel{
         btnTimSP.setFocusPainted(false);
         btnTimSP.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnTimSP.setRadius(10);
+        btnTimSP.setForeground(Color.BLACK);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

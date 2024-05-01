@@ -1,6 +1,7 @@
 
 package ui;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -225,6 +226,8 @@ public class BanHang extends javax.swing.JFrame {
 
         btnDMK.setText("Đổi mật khẩu");
         btnDMK.setBorderPainted(false);
+        btnDMK.setForeground(Color.black);
+        btnDMK.setBackground(Color.white);
         btnDMK.setColorClick(new java.awt.Color(209, 236, 240));
         btnDMK.setColorOver(new java.awt.Color(143, 108, 101));
         btnDMK.setFocusPainted(false);
@@ -232,6 +235,8 @@ public class BanHang extends javax.swing.JFrame {
 
         btnDXuat.setText("Đăng Xuất");
         btnDXuat.setBorderPainted(false);
+        btnDXuat.setForeground(Color.black);
+        btnDXuat.setBackground(Color.white);
         btnDXuat.setColorClick(new java.awt.Color(209, 236, 240));
         btnDXuat.setColorOver(new java.awt.Color(143, 108, 101));
         btnDXuat.setFocusPainted(false);
@@ -239,6 +244,8 @@ public class BanHang extends javax.swing.JFrame {
 
         btnGiaoCa.setText("Giao ca");
         btnGiaoCa.setBorderPainted(false);
+        btnGiaoCa.setForeground(Color.black);
+        btnGiaoCa.setBackground(Color.white);
         btnGiaoCa.setColorClick(new java.awt.Color(209, 236, 240));
         btnGiaoCa.setColorOver(new java.awt.Color(143, 108, 101));
         btnGiaoCa.setFocusPainted(false);

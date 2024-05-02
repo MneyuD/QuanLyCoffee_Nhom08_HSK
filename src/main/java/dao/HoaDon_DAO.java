@@ -31,6 +31,8 @@ public class HoaDon_DAO {
                     ngayLap = date.toLocalDate();
                 } else ngayLap = null;
 
+                String maBan = rs.getString("maBan");
+
                 Enum_PhuongThucTT pttt;
                 String pThuc = rs.getString("phuongThucThanhToan");
                 if(pThuc.equalsIgnoreCase("Chuyển khoản")) {
@@ -52,11 +54,10 @@ public class HoaDon_DAO {
                 } else gioRa = null;
 
                 Double tongTien = rs.getDouble("tongTien");
-                Ban ban = new Ban(rs.getString("maBan"));
                 NhanVien nhanVien = new NhanVien(rs.getString("maNV"));
                 KhachHang khachHang = new KhachHang(rs.getString("maKH"));
 
-                HoaDon hd = new HoaDon(maHD, ngayLap, pttt, gioVao, gioRa, ban, nhanVien, khachHang);
+                HoaDon hd = new HoaDon(maHD, ngayLap, pttt, gioVao, gioRa, maBan, nhanVien, khachHang);
                 orderList.add(hd);
             }
         } catch (SQLException e) {
@@ -215,11 +216,11 @@ public class HoaDon_DAO {
                 } else gioRa = null;
 
                 Double tongTien = rs.getDouble("tongTien");
-                Ban ban = new Ban(rs.getString("maBan"));
+                String maBan = rs.getString("maBan");
                 NhanVien nhanVien = new NhanVien(rs.getString("maNV"));
                 KhachHang khachHang = new KhachHang(rs.getString("maKH"));
 
-                hd = new HoaDon(maHD, ngayLap, pttt, gioVao, gioRa, ban, nhanVien, khachHang);
+                hd = new HoaDon(maHD, ngayLap, pttt, gioVao, gioRa, maBan, nhanVien, khachHang);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

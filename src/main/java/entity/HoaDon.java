@@ -10,7 +10,7 @@ public class HoaDon {
 	private Enum_PhuongThucTT pttt;
 	private LocalDate gioVao;
 	private LocalDate gioRa;
-	private Ban ban;
+	private String maBan;
 	private NhanVien nhanVien;
 	private KhachHang khachHang;
 	private Double tongTien;
@@ -22,13 +22,13 @@ public class HoaDon {
 		this.maHD = maHD;
 	}
 
-	public HoaDon(String maHD, LocalDate ngayLapHD, Enum_PhuongThucTT pttt, LocalDate gioVao, LocalDate gioRa, Ban ban, NhanVien nhanVien, KhachHang khachHang) {
+	public HoaDon(String maHD, LocalDate ngayLapHD, Enum_PhuongThucTT pttt, LocalDate gioVao, LocalDate gioRa, String maBan, NhanVien nhanVien, KhachHang khachHang) {
 		this.maHD = maHD;
 		this.ngayLapHD = ngayLapHD;
 		this.pttt = pttt;
 		this.gioVao = gioVao;
 		this.gioRa = gioRa;
-		this.ban = ban;
+		this.maBan = maBan;
 		this.nhanVien = nhanVien;
 		this.khachHang = khachHang;
 		this.tongTien = (double) 0;
@@ -61,14 +61,14 @@ public class HoaDon {
 	/**
 	 * @return the maBan
 	 */
-	public Ban getBan() {
-		return ban;
+	public String getMaBan() {
+		return maBan;
 	}
 	/**
-	 * @param ban the maBan to set
+	 * @param maBan the maBan to set
 	 */
-	public void setBan(Ban ban) {
-		this.ban = ban;
+	public void setMaBan(String maBan) {
+		this.maBan = maBan;
 	}
 	/**
 	 * @return the gioRa
@@ -148,7 +148,7 @@ public class HoaDon {
 				", pttt=" + pttt +
 				", gioVao=" + gioVao +
 				", gioRa=" + gioRa +
-				", maBan='" + ban + '\'' +
+				", maBan='" + maBan + '\'' +
 				", nhanVien=" + nhanVien +
 				", khachHang=" + khachHang +
 				'}';

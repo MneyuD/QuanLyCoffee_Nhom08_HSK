@@ -22,7 +22,6 @@ public class ChiTietHD_DAO {
                             "JOIN SanPham SP ON SP.maSP = CTHD.maSP " +
                             "JOIN KhachHang KH ON KH.maKH = HD.maKH " +
                             "JOIN NhanVien NV ON NV.maNV = HD.maNV " +
-                            "JOIN Ban B ON B.maBan = HD.maBan " +
                             "JOIN LoaiSP LSP ON SP.maLoai = LSP.maLoai");
             ResultSet rs = sm.executeQuery();
 
@@ -55,7 +54,7 @@ public class ChiTietHD_DAO {
                     gioRa = dateTimeGR.toLocalDate();
                 }
 
-                Ban ban = new Ban(rs.getString("maBan"), rs.getInt("soLuongKhach"), rs.getBoolean("trangThai"));
+                String maBan = rs.getString("maBan");
 
                 Enum_KhuVuc khuVuc;
                 String khuVucString = rs.getString("khuVuc");
@@ -92,7 +91,7 @@ public class ChiTietHD_DAO {
                         , rs.getDouble("thue"), kichCo, ngayHetHan, rs.getBoolean("trangThai"), loaiSp);
 
                 int soLuong = rs.getInt("soLuong");
-                HoaDon hoaDon = new HoaDon( maHD, ngayLap, pTTT, gioVao, gioRa, ban, nhanVien, khachHang) ;
+                HoaDon hoaDon = new HoaDon( maHD, ngayLap, pTTT, gioVao, gioRa, maBan, nhanVien, khachHang) ;
 
                 Double donGia = 0.0;
                 Double thanhTien = (double) 0;
@@ -115,6 +114,44 @@ public class ChiTietHD_DAO {
                             "FROM ChiTietHD CT JOIN SanPham SP ON CT.maSP = SP.maSP " +
                             "GROUP BY SP.[maSP], SP.tenSP, trangThai " +
                             "ORDER BY SUM(soLuong) DESC");
+            ResultSet rs = sm.executeQuery();
+
+            while(rs.next()) {
+                String maHD = rs.getString("maSP");
+                HoaDon hd = new HoaDon(maHD);
+
+                String maSP = rs.getString("maSP");
+                String tenSP = rs.getString("tenSP");
+                boolean trangThai = rs.getBoolean("trangThai");
+                int soLuong = rs.getInt("SoLuong");
+
+                SanPham sp = new SanPham(maSP, tenSP, trangThai);
+
+                ChiTietHD cthd = new ChiTietHD(hd, sp, soLuong, 0, 0);
+                orderList.add(cthd);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return orderList;
+    }
+
+    public ArrayList<ChiTietHD> getQuantityProduct_ByDate(LocalDate startDate, LocalDate endDate) {
+        ArrayList<ChiTietHD> orderList = new ArrayList<ChiTietHD>();
+        ConnectDB.getInstance();
+        Connection con = ConnectDB.getConnection();
+        try {
+            PreparedStatement sm = con.prepareStatement(
+                    "SELECT SP.maSP, SP.tenSP, SUM(soLuong) AS SoLuong, trangThai " +
+                            "FROM ChiTietHD CT JOIN SanPham SP ON CT.maSP = SP.maSP " +
+                            "   JOIN HoaDon HD ON HD.maHD = CT.maHD " +
+                            "WHERE CONVERT(DATE, ngayLap, 103) >= CONVERT(DATE, ?, 103) " +
+                            "   AND CONVERT(DATE, ngayLap, 103) <= CONVERT(DATE, ?, 103) " +
+                            "GROUP BY SP.[maSP], SP.tenSP, trangThai " +
+                            "ORDER BY SUM(soLuong) DESC");
+            sm.setDate(1, Date.valueOf(startDate));
+            sm.setDate(2, Date.valueOf(endDate));
             ResultSet rs = sm.executeQuery();
 
             while(rs.next()) {

@@ -556,7 +556,32 @@ public class ThongKe extends javax.swing.JPanel {
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
         );
+
+        btnLoc.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnLocActionPerformed(e);
+            }
+        });
     }// </editor-fold>
+
+    private void btnLocActionPerformed(ActionEvent e) {
+        String tuNgay = txtTuNgay_Loc.getText().trim();
+        String denNgay = txtDenNgay_Loc.getText().trim();
+
+        if(tuNgay.isEmpty()) {
+            txtTuNgay_Loc.requestFocus();
+        } else if (denNgay.isEmpty()) {
+            txtDenNgay_Loc.requestFocus();
+        } else if(!(tuNgay.isEmpty() && denNgay.isEmpty())) {
+            LocalDate startDate = validDate(tuNgay);
+            LocalDate endDate = validDate(denNgay);
+
+            if(startDate != null && endDate != null) {
+                loadData(new ChiTietHD_DAO().getQuantityProduct_ByDate(startDate, endDate));
+            }
+        }
+    }
 
     private void cbbTrangThaiSP_LocActionPerformed(ActionEvent e) {
         String trangThai = (String) cbbTrangThaiSP_Loc.getSelectedItem();

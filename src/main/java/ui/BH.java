@@ -4,15 +4,20 @@
  */
 package ui;
 
+import dao.KhachHang_DAO;
+import entity.KhachHang;
+
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
  * @author Admin
  */
-public class BH extends javax.swing.JPanel {
+public class BH extends javax.swing.JPanel implements ActionListener {
 
     /**
      * Creates new form BanHang
@@ -81,6 +86,7 @@ public class BH extends javax.swing.JPanel {
         btnTachDonHang = new javax.swing.JButton();
         btnGiaoHang = new javax.swing.JButton();
         btnThanhToan = new javax.swing.JButton();
+        khachHang_dao = new KhachHang_DAO();
 
         setBackground(new java.awt.Color(250, 238, 232));
 
@@ -309,6 +315,8 @@ public class BH extends javax.swing.JPanel {
         tableHoaDonCho.setShowGrid(true);
         tableHoaDonCho.setGridColor(Color.black);
         tableHoaDonCho.setRowHeight(25);
+
+
         tableHoaDonCho.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"HD001", "Phan Khánh Chương", "A", "12:47 01-04-2024", null, null},
@@ -329,7 +337,7 @@ public class BH extends javax.swing.JPanel {
             }
         });
         tableHoaDonCho.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        tableHoaDonCho.setSelectionBackground(new java.awt.Color(204, 204, 204));
+//        tableHoaDonCho.setSelectionBackground(new java.awt.Color(204, 204, 204));
         tableHoaDonCho.setSurrendersFocusOnKeystroke(true);
         tableHoaDonCho.getTableHeader().setResizingAllowed(false);
         tableHoaDonCho.getTableHeader().setReorderingAllowed(false);
@@ -440,7 +448,9 @@ public class BH extends javax.swing.JPanel {
         tableHoaDon.setShowGrid(true);
         tableHoaDon.setGridColor(Color.black);
         tableHoaDon.setRowHeight(25);
-        tableHoaDon.setBackground(new java.awt.Color(214, 217, 224));
+//        tableHoaDon.setBackground(new java.awt.Color(214, 217, 224));
+
+
         tableHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"SP001", "Caramel",  54000.0,  1,  54000.0, null},
@@ -460,7 +470,7 @@ public class BH extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        tableHoaDon.setColumnSelectionAllowed(true);
+        tableHoaDon.setColumnSelectionAllowed(false);
         scrollPaneHoaDon.setViewportView(tableHoaDon);
         scrollPaneHoaDon.setBackground(Color.white);
 
@@ -491,6 +501,7 @@ public class BH extends javax.swing.JPanel {
         txtSDT.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 
         btnTimSDT.setText("🔍︎");
+        btnTimSDT.addActionListener(this);
 
         lblHoTen.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblHoTen.setText("Họ tên:");
@@ -767,5 +778,16 @@ public class BH extends javax.swing.JPanel {
     private javax.swing.JTextField txtHoTen;
     private javax.swing.JTextField txtDiemTichLuy;
     private javax.swing.JTextField txtTienKhac;
+    private KhachHang_DAO khachHang_dao;
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object o = e.getSource();
+        if(o.equals(btnTimSDT)){
+            KhachHang kh = khachHang_dao.getKhachHangTheoSDT(txtSDT.getText());
+           txtHoTen.setText(kh.getTenKH());
+           txtDiemTichLuy.setText(kh.getDiemTichLuy()+"");
+        }
+    }
     // End of variables declaration//GEN-END:variables
 }

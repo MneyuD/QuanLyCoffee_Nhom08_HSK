@@ -18,7 +18,6 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 /**
- *
  * @author Admin
  */
 public class HoaDon extends javax.swing.JPanel {
@@ -143,22 +142,22 @@ public class HoaDon extends javax.swing.JPanel {
         HoaDon_Table.setShowGrid(true);
         HoaDon_Table.setGridColor(Color.black);
         HoaDon_Table.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
+                new Object[][]{
                         {null, null, null, null, null},
                         {null, null, null, null, null},
                         {null, null, null, null, null},
                         {null, null, null, null, null}
                 },
-                new String [] {
+                new String[]{
                         "Mã hóa đơn", "Người tạo", "Thời gian tạo", "Tổng tiền", "Trạng thái"
                 }
         ) {
-            Class[] types = new Class [] {
+            Class[] types = new Class[]{
                     java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+                return types[columnIndex];
             }
         });
         scrollPane_HoaDon.setViewportView(HoaDon_Table);
@@ -175,13 +174,13 @@ public class HoaDon extends javax.swing.JPanel {
         HoaDonChiTiet_Table.setShowGrid(true);
         HoaDonChiTiet_Table.setGridColor(Color.black);
         HoaDonChiTiet_Table.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
+                new Object[][]{
                         {null, null, null, null},
                         {null, null, null, null},
                         {null, null, null, null},
                         {null, null, null, null}
                 },
-                new String [] {
+                new String[]{
                         "Title 1", "Title 2", "Title 3", "Title 4"
                 }
         ));
@@ -356,7 +355,6 @@ public class HoaDon extends javax.swing.JPanel {
         TrangThaiStatus1_lbl.setText("Chờ xác nhận");
         TrangThaiStatus1_lbl.setBackground(Color.white);
         TrangThaiStatus1_lbl.setForeground(Color.black);
-
 
 
         TongTienSanPham1_lbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -544,14 +542,13 @@ public class HoaDon extends javax.swing.JPanel {
         DenNgay_lbl.setForeground(Color.black);
 
 
-
         TrangThai2_lbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         TrangThai2_lbl.setText("Trạng thái:");
         TrangThai2_lbl.setBackground(Color.white);
         TrangThai2_lbl.setForeground(Color.black);
 
 
-        cbb_TrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chờ order", "Hoàn thành", " " }));
+        cbb_TrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Chờ order", "Hoàn thành", " "}));
         cbb_TrangThai.setForeground(Color.black);
         cbb_TrangThai.setBackground(Color.white);
 
@@ -571,8 +568,8 @@ public class HoaDon extends javax.swing.JPanel {
                 ArrayList<ChiTietHD> list = new ChiTietHD_DAO().getOrderDetail_ByID(maHD);
 
                 modelChiTietHD.setRowCount(0);
-                for(ChiTietHD cthd : list) {
-                    modelChiTietHD.addRow(new Object[] {cthd.getSp().getTenSP(), cthd.getDonGia()
+                for (ChiTietHD cthd : list) {
+                    modelChiTietHD.addRow(new Object[]{cthd.getSp().getTenSP(), cthd.getDonGia()
                             , cthd.getSoLuong(), cthd.getThanhTien(), null});
                 }
             }
@@ -598,22 +595,22 @@ public class HoaDon extends javax.swing.JPanel {
             }
         });
         HoaDonInfo_Table.setModel(modelHoaDon = new javax.swing.table.DefaultTableModel(
-                new Object [][] {
+                new Object[][]{
                         {null, null, null, null, null, null, null, null},
                         {null, null, null, null, null, null, null, null},
                         {null, null, null, null, null, null, null, null},
                         {null, null, null, null, null, null, null, null}
                 },
-                new String [] {
+                new String[]{
                         "Mã hóa đơn", "Người tạo", "Khách hàng", "Thời gian tạo", "Thời gian thanh toán", "Tổng tiền", "Địa chỉ", "Trạng thái"
                 }
         ) {
-            Class[] types = new Class [] {
+            Class[] types = new Class[]{
                     java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+                return types[columnIndex];
             }
         });
         HoaDonInfo_Table.setShowHorizontalLines(true);
@@ -633,22 +630,22 @@ public class HoaDon extends javax.swing.JPanel {
         jTableChiTietHD.setShowGrid(true);
         jTableChiTietHD.setRowHeight(25);
         jTableChiTietHD.setModel(modelChiTietHD = new javax.swing.table.DefaultTableModel(
-                new Object [][] {
+                new Object[][]{
                         {null, null, null, null, null},
                         {null, null, null, null, null},
                         {null, null, null, null, null},
                         {null, null, null, null, null}
                 },
-                new String [] {
+                new String[]{
                         "Tên sản phẩm", "Đơn giá", "Số lượng", "Thành tiền", "Ghi chú"
                 }
         ) {
-            Class[] types = new Class [] {
+            Class[] types = new Class[]{
                     java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+                return types[columnIndex];
             }
         });
         scrollPaneChiTietHoaDon.setViewportView(jTableChiTietHD);
@@ -1008,10 +1005,10 @@ public class HoaDon extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_SoDienThoai1_txtActionPerformed
 
-    private void loadData(ArrayList<entity.HoaDon> list){
+    private void loadData(ArrayList<entity.HoaDon> list) {
         modelHoaDon.setRowCount(0);
-        for(entity.HoaDon hd : list) {
-            modelHoaDon.addRow(new Object[] {hd.getMaHD(), hd.getNhanVien().getMaNV() , hd.getKhachHang().getMaKH()
+        for (entity.HoaDon hd : list) {
+            modelHoaDon.addRow(new Object[]{hd.getMaHD(), hd.getNhanVien().getMaNV(), hd.getKhachHang().getSdt()
                     , hd.getNgayLapHD(), hd.getGioRa(), hd.getTongTien(), null, null});
         }
     }

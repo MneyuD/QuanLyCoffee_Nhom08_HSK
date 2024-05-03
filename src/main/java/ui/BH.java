@@ -4,11 +4,23 @@
  */
 package ui;
 
+<<<<<<< HEAD
+=======
+import dao.KhachHang_DAO;
+import entity.KhachHang;
+
+import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+>>>>>>> 9daff001e75a0a3cb54faaf95e1ffa5cd4df89e1
 /**
  *
  * @author Admin
  */
-public class BH extends javax.swing.JPanel {
+public class BH extends javax.swing.JPanel implements ActionListener {
 
     /**
      * Creates new form BanHang
@@ -83,6 +95,7 @@ public class BH extends javax.swing.JPanel {
         lblTrangThai_Status = new javax.swing.JLabel();
         btnHuyDonHang = new javax.swing.JButton();
         btnThanhToan = new javax.swing.JButton();
+        khachHang_dao = new KhachHang_DAO();
 
         setBackground(new java.awt.Color(250, 238, 232));
 
@@ -185,6 +198,20 @@ public class BH extends javax.swing.JPanel {
         lblLoaiSanPham.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblLoaiSanPham.setText("Loại sản phẩm:");
 
+<<<<<<< HEAD
+=======
+        lblHoaDonGiao.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblHoaDonGiao.setText("Hóa đơn giao");
+        lblHoaDonGiao.setForeground(Color.black);
+
+        tableHoaDonCho.setBackground(Color.white);
+        tableHoaDonCho.setForeground(Color.black);
+        tableHoaDonCho.setShowGrid(true);
+        tableHoaDonCho.setGridColor(Color.black);
+        tableHoaDonCho.setRowHeight(25);
+
+
+>>>>>>> 9daff001e75a0a3cb54faaf95e1ffa5cd4df89e1
         tableHoaDonCho.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"HD001", "Phan Khánh Chương", "A", "12:47 01-04-2024", null, null},
@@ -209,8 +236,12 @@ public class BH extends javax.swing.JPanel {
             }
         });
         tableHoaDonCho.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+<<<<<<< HEAD
         tableHoaDonCho.setSelectionBackground(new java.awt.Color(204, 204, 204));
         tableHoaDonCho.setShowGrid(true);
+=======
+//        tableHoaDonCho.setSelectionBackground(new java.awt.Color(204, 204, 204));
+>>>>>>> 9daff001e75a0a3cb54faaf95e1ffa5cd4df89e1
         tableHoaDonCho.setSurrendersFocusOnKeystroke(true);
         tableHoaDonCho.getTableHeader().setResizingAllowed(false);
         tableHoaDonCho.getTableHeader().setReorderingAllowed(false);
@@ -281,8 +312,20 @@ public class BH extends javax.swing.JPanel {
             }
         });
 
+<<<<<<< HEAD
         jTable2.setBackground(new java.awt.Color(214, 217, 224));
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
+=======
+        tableHoaDon.setBackground(Color.white);
+        tableHoaDon.setForeground(Color.black);
+        tableHoaDon.setShowGrid(true);
+        tableHoaDon.setGridColor(Color.black);
+        tableHoaDon.setRowHeight(25);
+//        tableHoaDon.setBackground(new java.awt.Color(214, 217, 224));
+
+
+        tableHoaDon.setModel(new javax.swing.table.DefaultTableModel(
+>>>>>>> 9daff001e75a0a3cb54faaf95e1ffa5cd4df89e1
             new Object [][] {
                 {"SP001", "Caramel",  new Double(54000.0),  new Byte((byte) 1),  new Double(54000.0), null},
                 {null, null, null, null, null, null},
@@ -301,8 +344,14 @@ public class BH extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
+<<<<<<< HEAD
         jTable2.setColumnSelectionAllowed(true);
         jScrollPane3.setViewportView(jTable2);
+=======
+        tableHoaDon.setColumnSelectionAllowed(false);
+        scrollPaneHoaDon.setViewportView(tableHoaDon);
+        scrollPaneHoaDon.setBackground(Color.white);
+>>>>>>> 9daff001e75a0a3cb54faaf95e1ffa5cd4df89e1
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -326,6 +375,7 @@ public class BH extends javax.swing.JPanel {
         lblSDT.setText("SĐT:");
 
         btnTimSDT.setText("🔍︎");
+        btnTimSDT.addActionListener(this);
 
         lblHoTen.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblHoTen.setText("Họ tên:");
@@ -656,9 +706,28 @@ public class BH extends javax.swing.JPanel {
     private javax.swing.JTable tableHoaDonCho;
     private javax.swing.JLabel txtLoaiThanhToan;
     private javax.swing.JTextField txtTenSanPham;
+<<<<<<< HEAD
     private javax.swing.JTextField txtTienKhachTra;
     private javax.swing.JTextField txtTienThua;
     private javax.swing.JTextField txtTongTienHoaDon;
     private javax.swing.JTextField txtTongTienSanPham;
     // End of variables declaration                   
+=======
+    private javax.swing.JTextField txtSDT;
+    private javax.swing.JTextField txtHoTen;
+    private javax.swing.JTextField txtDiemTichLuy;
+    private javax.swing.JTextField txtTienKhac;
+    private KhachHang_DAO khachHang_dao;
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object o = e.getSource();
+        if(o.equals(btnTimSDT)){
+            KhachHang kh = khachHang_dao.getKhachHangTheoSDT(txtSDT.getText());
+           txtHoTen.setText(kh.getTenKH());
+           txtDiemTichLuy.setText(kh.getDiemTichLuy()+"");
+        }
+    }
+    // End of variables declaration//GEN-END:variables
+>>>>>>> 9daff001e75a0a3cb54faaf95e1ffa5cd4df89e1
 }

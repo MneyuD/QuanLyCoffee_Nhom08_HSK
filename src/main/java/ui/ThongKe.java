@@ -93,7 +93,7 @@ public class ThongKe extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(250, 238, 232));
 
         jPanelTren.setBackground(new java.awt.Color(250, 238, 232));
-        jPanelTren.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thống kê", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
+        jPanelTren.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thống kê", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), Color.black)); // NOI18N
         jPanelTren.setForeground(new java.awt.Color(255, 255, 255));
         jPanelTren.setName(""); // NOI18N
 
@@ -109,6 +109,7 @@ public class ThongKe extends javax.swing.JPanel {
         txtTongHN.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtTongHN.setText("Tiền");
         txtTongHN.setBorder(null);
+
 
         javax.swing.GroupLayout jPanelHomNayLayout = new javax.swing.GroupLayout(jPanelHomNay);
         jPanelHomNay.setLayout(jPanelHomNayLayout);

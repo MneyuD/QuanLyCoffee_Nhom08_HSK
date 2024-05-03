@@ -20,7 +20,7 @@ public class ChiTietHD_DAO {
                     "SELECT * FROM HoaDon HD " +
                             "JOIN ChiTietHD CTHD ON HD.maHD = CTHD.maHD " +
                             "JOIN SanPham SP ON SP.maSP = CTHD.maSP " +
-                            "JOIN KhachHang KH ON KH.maKH = HD.maKH " +
+                            "JOIN KhachHang KH ON KH.sdt = HD.maKH " +
                             "JOIN NhanVien NV ON NV.maNV = HD.maNV " +
                             "JOIN LoaiSP LSP ON SP.maLoai = LSP.maLoai");
             ResultSet rs = sm.executeQuery();
@@ -76,7 +76,7 @@ public class ChiTietHD_DAO {
                 if(dateTimeNS != null) {
                     ngaySinh = dateTimeNS.toLocalDate();
                 }
-                KhachHang khachHang = new KhachHang(rs.getString("maKH"), rs.getString("tenKH"), ngaySinh
+                KhachHang khachHang = new KhachHang(rs.getString("tenKH"), ngaySinh
                         , rs.getBoolean("gioiTinh"), rs.getString("sdt"), 0);
 
                 Enum_KichCo kichCo = Enum_KichCo.valueOf(rs.getString("kichCo"));

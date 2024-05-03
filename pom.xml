@@ -46,11 +46,22 @@
             <artifactId>mssql-jdbc</artifactId>
             <version>8.2.2.jre11</version>
         </dependency>
+<<<<<<< HEAD
         <dependency>
             <groupId>com.toedter</groupId>
             <artifactId>jcalendar</artifactId>
             <version>1.4</version>
         </dependency>
+=======
+        <!-- https://mvnrepository.com/artifact/com.itextpdf/itext7-core -->
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itext7-core</artifactId>
+            <version>7.0.4</version>
+            <type>pom</type>
+        </dependency>
+
+>>>>>>> 9daff001e75a0a3cb54faaf95e1ffa5cd4df89e1
     </dependencies>
 
 </project>
